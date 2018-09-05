@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class GameController : MonoBehaviour {
 
@@ -22,6 +23,16 @@ public class GameController : MonoBehaviour {
     [Range(1, 2)]
     public float spaceBetweenTiles = 1.1f;
 
+    [Tooltip("The speed of the tiles")]
+    [Range(-1, 0)]
+    public float tileMovementSpeed = -0.16f;
+
+    [Tooltip("The min position in the Y")]
+    public float tileMinY = -4.2f;
+
+    [Tooltip("The max position in the Y")]
+    public float tileMaxY = -0.9f;
+
     /// <summary>
     /// Where the next tile should be spawned at.
     /// </summary>
@@ -38,11 +49,14 @@ public class GameController : MonoBehaviour {
     private List<GameObject> tiles;
 
     private GameObject lastTile;
-    bool settingTheStage;
-
+    private bool settingTheStage;
+    private Vector3[] bezierPoints;
+    private int bezierDivisions = 2000;
 
     // Use this for initialization
     void Start () {
+
+        bezierPoints = new Vector3[bezierDivisions];
 
         nextTileLocation = startPoint;
         nextTileRotation = Quaternion.identity;
@@ -70,6 +84,7 @@ public class GameController : MonoBehaviour {
         for(int i = 0; i < tiles.Count; i++) {
             if (!tiles[i].activeInHierarchy) {
 
+                tiles[i].GetComponent<TileBehaviour>().movementSpeed = tileMovementSpeed;
                 return tiles[i];
             }
         }
@@ -86,38 +101,84 @@ public class GameController : MonoBehaviour {
             SpawnNextTile();
         }
 
+        Vector3 endPoint = nextTilePos;
+        endPoint.x += 1000;
+        MakeBezierCurve(nextTilePos, endPoint, Vector3.zero, Vector3.zero, bezierDivisions);
+
         settingTheStage = false;
     }
 
+    Vector3 nextTilePos;
+    int bezierIterator = 0;
+
     public void SpawnNextTile() {
 
-        Vector3 nextTilePos;
-        var newTile = GetPooledTile(); 
-
-        
+       
+        var newTile = GetPooledTile();        
 
         // Figure out where and at what rotation we should spawn
         // the next item
         if (settingTheStage) {
-
             newTile.transform.position = nextTileLocation;
             newTile.transform.rotation = nextTileRotation;
 
             nextTilePos = newTile.transform.position;
             nextTilePos.x += spaceBetweenTiles;
             nextTileLocation = nextTilePos;
+
+            lastTile = newTile;
+
+            nextTilePos = lastTile.transform.position;
         }
         else {
-            nextTilePos = lastTile.transform.position;
-            nextTilePos.x += spaceBetweenTiles;
-            nextTileLocation = nextTilePos;
+                     
+
+            /*nextTilePos.x += spaceBetweenTiles;
+            nextTilePos.y = actualNumber;*/
+
+            nextTileLocation = bezierPoints[bezierIterator];
+            bezierIterator++;
 
             newTile.transform.position = nextTileLocation;
             newTile.transform.rotation = nextTileRotation;
         }
 
         newTile.SetActive(true);
-        lastTile = newTile;
+       
+    }
+
+    float GetRandomNum(float minValue, float maxValue) {
+
+        float result;
+        Random.State originalRandomState = Random.state;
+
+        var seed = Random.Range(0, int.MaxValue);
+        seed ^= (int)System.DateTime.Now.Ticks;
+        seed ^= (int)Time.unscaledTime;
+        seed &= int.MaxValue;
+        
+        Random.InitState(seed);
+
+        result = Random.Range(minValue, maxValue);
+
+        Random.state = originalRandomState;
+
+        return result;
+    }
+
+    void MakeBezierCurve(Vector3 startPoint, Vector3 endPoint, 
+        Vector3 startTangent, Vector3 endTangent, int division) {
+
+       bezierPoints = Handles.MakeBezierPoints(
+           startPoint, 
+           endPoint, 
+           startTangent, 
+           endTangent,
+           division
+           );
+
+
+
     }
 
 }
