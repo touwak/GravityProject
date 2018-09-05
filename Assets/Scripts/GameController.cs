@@ -11,12 +11,16 @@ public class GameController : MonoBehaviour {
     public Vector3 startPoint = new Vector3(-5, -9, -3);
 
     [Tooltip("How many tiles should we create for the pool")]
-    [Range(1, 30)]
-    public int initPoolNum = 30;
+    [Range(1, 40)]
+    public int initPoolNum = 40;
 
     [Tooltip("How many tiles should we create in advance")]
     [Range(1, 30)]
     public int initSpawnNum = 10;
+
+    [Tooltip("Space between the last tile and the new one")]
+    [Range(1, 2)]
+    public float spaceBetweenTiles = 1.1f;
 
     /// <summary>
     /// Where the next tile should be spawned at.
@@ -28,7 +32,13 @@ public class GameController : MonoBehaviour {
     /// </summary>
     private Quaternion nextTileRotation;
 
+    /// <summary>
+    /// pool of tiles
+    /// </summary>
     private List<GameObject> tiles;
+
+    private GameObject lastTile;
+    bool settingTheStage;
 
 
     // Use this for initialization
@@ -36,6 +46,8 @@ public class GameController : MonoBehaviour {
 
         nextTileLocation = startPoint;
         nextTileRotation = Quaternion.identity;
+
+        lastTile = new GameObject();
 
         // pool of tiles
         tiles = new List<GameObject>();
@@ -65,22 +77,47 @@ public class GameController : MonoBehaviour {
         return null;
     }
 
+    //Initialize the stage
     void SetTheStage() {
 
+        settingTheStage = true;
+
         for (int i = 0; i < initSpawnNum; i++) {
-            var newTile = GetPooledTile();
+            SpawnNextTile();
+        }
+
+        settingTheStage = false;
+    }
+
+    public void SpawnNextTile() {
+
+        Vector3 nextTilePos;
+        var newTile = GetPooledTile(); 
+
+        
+
+        // Figure out where and at what rotation we should spawn
+        // the next item
+        if (settingTheStage) {
+
             newTile.transform.position = nextTileLocation;
             newTile.transform.rotation = nextTileRotation;
 
-            newTile.SetActive(true);
-
-            // Figure out where and at what rotation we should spawn
-            // the next item
-            var nextTile = newTile.transform.position;
-            nextTile.x += 1.1f;
-            nextTileLocation = nextTile;
-            nextTileRotation = Quaternion.identity;
-
+            nextTilePos = newTile.transform.position;
+            nextTilePos.x += spaceBetweenTiles;
+            nextTileLocation = nextTilePos;
         }
+        else {
+            nextTilePos = lastTile.transform.position;
+            nextTilePos.x += spaceBetweenTiles;
+            nextTileLocation = nextTilePos;
+
+            newTile.transform.position = nextTileLocation;
+            newTile.transform.rotation = nextTileRotation;
+        }
+
+        newTile.SetActive(true);
+        lastTile = newTile;
     }
+
 }
