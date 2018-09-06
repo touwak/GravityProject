@@ -201,7 +201,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 838911292}
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -8.25, y: 8.61, z: -8.25}
+  m_LocalPosition: {x: -8.82, y: 7.21, z: -8.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 945016938}
@@ -468,6 +468,3 @@ MonoBehaviour:
   initPoolNum: 40
   initSpawnNum: 30
   spaceBetweenTiles: 1.1
-  tileMovementSpeed: -0.16
-  tileMinY: -4.2
-  tileMaxY: -0.9

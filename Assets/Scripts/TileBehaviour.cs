@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TileBehaviour : MonoBehaviour {
 
-    [HideInInspector]
-    public float movementSpeed;
+    [Range(-1, 0)]
+    public float movementSpeed = -5.0f;
         
     Vector3 movementForce;
     Rigidbody rb;
