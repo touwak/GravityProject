@@ -22,6 +22,10 @@ public class GameController : MonoBehaviour {
     [Range(1, 2)]
     public float spaceBetweenTiles = 1.1f;
 
+    [Tooltip("The speed of the tiles")]
+    [Range(-1, 0)]
+    public float tileMovementSpeed = -0.16f;
+
     /// <summary>
     /// Where the next tile should be spawned at.
     /// </summary>
@@ -53,7 +57,9 @@ public class GameController : MonoBehaviour {
         tiles = new List<GameObject>();
         for (int i = 0; i < initPoolNum; ++i) {
             var newTile = Instantiate(tile, nextTileLocation, nextTileRotation);
+            newTile.GetComponent<TileBehaviour>().movementSpeed = tileMovementSpeed;
             newTile.SetActive(false);
+
             tiles.Add(newTile);
         }
 
@@ -70,6 +76,7 @@ public class GameController : MonoBehaviour {
         for(int i = 0; i < tiles.Count; i++) {
             if (!tiles[i].activeInHierarchy) {
 
+                
                 return tiles[i];
             }
         }

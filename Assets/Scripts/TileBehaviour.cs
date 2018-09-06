@@ -5,7 +5,7 @@ using UnityEngine;
 public class TileBehaviour : MonoBehaviour {
 
     [Range(-1, 0)]
-    public float movementSpeed = -5.0f;
+    public float movementSpeed;
         
     Vector3 movementForce;
     Rigidbody rb;
