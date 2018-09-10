@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class GameController : MonoBehaviour {
 
@@ -11,11 +12,11 @@ public class GameController : MonoBehaviour {
     public Vector3 startPoint = new Vector3(-5, -9, -3);
 
     [Tooltip("How many tiles should we create for the pool")]
-    [Range(1, 40)]
+    [Range(1, 100)]
     public int initPoolNum = 40;
 
     [Tooltip("How many tiles should we create in advance")]
-    [Range(1, 30)]
+    [Range(1, 100)]
     public int initSpawnNum = 10;
 
     [Tooltip("Space between the last tile and the new one")]
@@ -25,6 +26,22 @@ public class GameController : MonoBehaviour {
     [Tooltip("The speed of the tiles")]
     [Range(-1, 0)]
     public float tileMovementSpeed = -0.16f;
+
+    [Header("Bezier Curve")]
+    [Tooltip("The start point of the bezier curve")]
+    public Vector3 startBezierPoint;
+
+    [Tooltip("The end point of the bezier curve")]
+    public Vector3 endBezierPoint;
+
+    [Tooltip("The start tangent of the bezier curve")]
+    public Vector3 startTangent;
+
+    [Tooltip("The end tangent of the bezier curve")]
+    public Vector3 endTangent;
+
+    [Tooltip("The number of divions of the bezier curve")]
+    public int Divisions;
 
     /// <summary>
     /// Where the next tile should be spawned at.
@@ -40,9 +57,11 @@ public class GameController : MonoBehaviour {
     /// pool of tiles
     /// </summary>
     private List<GameObject> tiles;
-
+    
     private GameObject lastTile;
-    bool settingTheStage;
+    private bool settingTheStage;
+    private Vector3[] bezierPoints;
+    private int bezierIterator;
 
 
     // Use this for initialization
@@ -50,6 +69,17 @@ public class GameController : MonoBehaviour {
 
         nextTileLocation = startPoint;
         nextTileRotation = Quaternion.identity;
+
+        bezierIterator = 0;
+
+        //create the bezier points
+        bezierPoints = Handles.MakeBezierPoints(
+            startBezierPoint, 
+            endBezierPoint, 
+            startTangent, 
+            endTangent, 
+            10
+            );
 
         lastTile = new GameObject();
 
@@ -96,6 +126,8 @@ public class GameController : MonoBehaviour {
         settingTheStage = false;
     }
 
+   
+
     public void SpawnNextTile() {
 
         Vector3 nextTilePos;
@@ -117,6 +149,7 @@ public class GameController : MonoBehaviour {
         else {
             nextTilePos = lastTile.transform.position;
             nextTilePos.x += spaceBetweenTiles;
+            nextTilePos.y = BezierPoint(ref bezierIterator).y;
             nextTileLocation = nextTilePos;
 
             newTile.transform.position = nextTileLocation;
@@ -125,6 +158,21 @@ public class GameController : MonoBehaviour {
 
         newTile.SetActive(true);
         lastTile = newTile;
+    }
+
+
+    Vector3 BezierPoint(ref int iterator) {
+
+        Vector3 point = bezierPoints[iterator];
+
+        if (bezierIterator < bezierPoints.Length - 1) {
+            iterator++;
+        }
+        else {
+            iterator = 0;
+        }
+
+        return point;
     }
 
 }

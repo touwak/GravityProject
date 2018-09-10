@@ -201,7 +201,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 838911292}
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -8.82, y: 7.21, z: -8.82}
+  m_LocalPosition: {x: -15.79, y: 22.65, z: -19.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 945016938}
@@ -232,7 +232,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 945016937}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.9, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 838911293}
@@ -269,7 +269,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.46
+  orthographic size: 13
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -394,7 +394,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1381813193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.11, y: 4.02, z: 2.52}
+  m_LocalPosition: {x: -29, y: 4.02, z: 2.52}
   m_LocalScale: {x: 1, y: 12.939, z: 5.6976}
   m_Children: []
   m_Father: {fileID: 0}
@@ -464,7 +464,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 1762080767656830, guid: 08eefadc5a541f14e8b0245376b68e82, type: 2}
-  startPoint: {x: 12, y: -2.7, z: 2.4}
-  initPoolNum: 40
-  initSpawnNum: 30
+  startPoint: {x: -2, y: -4, z: 2.4}
+  initPoolNum: 50
+  initSpawnNum: 50
   spaceBetweenTiles: 1.1
+  tileMovementSpeed: -0.05
+  startBezierPoint: {x: 0, y: 0, z: 0}
+  endBezierPoint: {x: -6, y: 0, z: 0}
+  startTangent: {x: -2.7, y: 6, z: 0}
+  endTangent: {x: -3.2, y: -6, z: 0}
+  Divisions: 6

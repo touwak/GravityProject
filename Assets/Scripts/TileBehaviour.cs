@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TileBehaviour : MonoBehaviour {
 
-    [Range(-1, 0)]
+    [HideInInspector]
     public float movementSpeed;
         
-    Vector3 movementForce;
+    public Vector3 movementForce;
     Rigidbody rb;
 
 	// Use this for initialization
