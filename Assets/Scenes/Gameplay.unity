@@ -423,7 +423,7 @@ MonoBehaviour:
   tile: {fileID: 1762080767656830, guid: 08eefadc5a541f14e8b0245376b68e82, type: 2}
   startPoint: {x: 0, y: 0, z: 0}
   initPoolNum: 60
-  initSpawnNum: 60
+  initSpawnNum: 1
   spaceBetweenTiles: 1.1
   spaceBetweenTilesY: 20
   tileMovementSpeed: -0.05

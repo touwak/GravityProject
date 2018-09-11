@@ -25,16 +25,39 @@ public class TileBehaviour : MonoBehaviour {
     float startTime;
     float topJourneyLength;
     float bottomJourneyLength;
+    bool separateEffectEnable;
 
     void Start () {
         movementForce = new Vector3(movementSpeed, 0, 0);
         rb = GetComponent<Rigidbody>();
         spaceBetweenTilesY = FindObjectOfType<GameController>().spaceBetweenTilesY;
 
+        PrepareSepareteEffect();
+    }
+
+    private void OnEnable() {
+        PrepareSepareteEffect();
+    }
+
+    void Update () {
+        movementForce *= (Time.deltaTime * 60);
+
+        rb.AddForce(movementForce);
+
+        if (separateEffectEnable) {
+            SeparateEffect();
+        }
+	}
+
+    float CalcDistanceBetweenPoints(Vector3 start, Vector3 end) {
+        return Vector3.Distance(start, end);            
+    }
+
+    void PrepareSepareteEffect() {
         if (topTile && bottomTile) {
             //spawn effect
             //top
-            topTilePos = topTile.transform.position;
+            topTilePos = topTile.transform.localPosition;
             topTilePos.y = topTile.transform.localScale.y * 0.5f;
 
             topTilePosEnd = topTilePos;
@@ -43,7 +66,7 @@ public class TileBehaviour : MonoBehaviour {
             topJourneyLength = CalcDistanceBetweenPoints(topTilePos, topTilePosEnd);
 
             //end
-            bottomTilePos = bottomTile.transform.position;
+            bottomTilePos = bottomTile.transform.localPosition;
             bottomTilePos.y = (bottomTile.transform.localScale.y * 0.5f) * -1.0f;
 
             bottomTilePosEnd = bottomTilePos;
@@ -51,33 +74,27 @@ public class TileBehaviour : MonoBehaviour {
 
             bottomJourneyLength = CalcDistanceBetweenPoints(bottomTilePos, bottomTilePosEnd);
 
-            topTile.transform.position = topTilePos;
-            bottomTile.transform.position = bottomTilePos;
+            topTile.transform.localPosition = topTilePos;
+            bottomTile.transform.localPosition = bottomTilePos;
 
-            startTime = Time.time;          
+            startTime = Time.time;
+            separateEffectEnable = true;
         }
     }
 
-	void Update () {
-        movementForce *= (Time.deltaTime * 60);
-
-        rb.AddForce(movementForce);
-
-        SeparateEffect();
-	}
-
-    float CalcDistanceBetweenPoints(Vector3 start, Vector3 end) {
-        return Vector3.Distance(start, end);            
-    }
-
-    void SeparateEffect() {
+    void SeparateEffect() {          
         // distance moved = time * speed
         float distCovered = (Time.time - startTime) * effectSpeed;
 
+        if (distCovered > topJourneyLength) {
+            separateEffectEnable = false;
+            return;
+        }
+
         // fraction of journey completed = current distance / total distance
         float fracJourney = distCovered / topJourneyLength;
-
-        topTile.transform.position = Vector3.Lerp(topTilePos, topTilePosEnd, fracJourney);
-        topTile.transform.position = Vector3.Lerp(bottomTilePos, bottomTilePosEnd, fracJourney);
+       
+        topTile.transform.localPosition = Vector3.Lerp(topTilePos, topTilePosEnd, fracJourney);
+        bottomTile.transform.localPosition = Vector3.Lerp(bottomTilePos, bottomTilePosEnd, fracJourney);
     }
 }
