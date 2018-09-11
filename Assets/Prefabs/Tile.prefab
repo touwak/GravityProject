@@ -53,8 +53,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4011840363417958}
   - component: {fileID: 54137782992962340}
-  - component: {fileID: 114654286646136686}
   - component: {fileID: 65490326259425400}
+  - component: {fileID: 114654286646136686}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Tile
@@ -86,8 +86,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1762080767656830}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: -2.7, z: 2.4}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4499037339958994}
@@ -103,8 +103,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1719893296363478}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.406204, y: -9.47, z: 0.5699539}
-  m_LocalScale: {x: 1, y: 15.864, z: 1}
+  m_LocalPosition: {x: 0, y: -20, z: 0}
+  m_LocalScale: {x: 1, y: 33, z: 1}
   m_Children: []
   m_Father: {fileID: 4011840363417958}
   m_RootOrder: 1
@@ -116,8 +116,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1795953736756054}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.406204, y: 17.28, z: 0.5699539}
-  m_LocalScale: {x: 1, y: 15.863999, z: 1}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
+  m_LocalScale: {x: 1, y: 33, z: 1}
   m_Children: []
   m_Father: {fileID: 4011840363417958}
   m_RootOrder: 0
@@ -257,7 +257,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 13.89, z: 1}
-  m_Center: {x: -17.47, y: 4.05, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65825786423207844
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -282,3 +282,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: -0.02
+  movementForce: {x: 0, y: 0, z: 0}
+  topTile: {fileID: 1795953736756054}
+  bottomTile: {fileID: 1719893296363478}

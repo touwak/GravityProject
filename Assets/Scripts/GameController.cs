@@ -23,6 +23,10 @@ public class GameController : MonoBehaviour {
     [Range(1, 2)]
     public float spaceBetweenTiles = 1.1f;
 
+    [Tooltip("Space between the top tile and the bottom one")]
+    [Range(20, 50)]
+    public float spaceBetweenTilesY = 20f;
+
     [Tooltip("The speed of the tiles")]
     [Range(-1, 0)]
     public float tileMovementSpeed = -0.16f;
