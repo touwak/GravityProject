@@ -6,7 +6,8 @@ public class TileBehaviour : MonoBehaviour {
 
     //seted in the game controller
     [HideInInspector]
-    public float movementSpeed;    
+    public float movementSpeed;
+    
     public Vector3 movementForce;
 
     public GameObject topTile;
@@ -15,33 +16,35 @@ public class TileBehaviour : MonoBehaviour {
     public float spaceBetweenTilesY;
     public float effectSpeed = 1.0f;
 
-    Rigidbody rb;
+    [HideInInspector]
+    public bool separateEffectEnable = false;
 
+    Rigidbody rb;
+    
     //spawn effect
-    Vector3 topTilePos;
-    Vector3 topTilePosEnd;
-    Vector3 bottomTilePos;
-    Vector3 bottomTilePosEnd;
+    Vector3 startTilePos;
+    Vector3 endTilePos;
     float startTime;
     float topJourneyLength;
-    float bottomJourneyLength;
-    bool separateEffectEnable;
 
     void Start () {
         movementForce = new Vector3(movementSpeed, 0, 0);
         rb = GetComponent<Rigidbody>();
         spaceBetweenTilesY = FindObjectOfType<GameController>().spaceBetweenTilesY;
 
-        PrepareSepareteEffect();
+        if (separateEffectEnable) {
+            SetSepareteEffect();
+        }
     }
 
     private void OnEnable() {
-        PrepareSepareteEffect();
+        if (separateEffectEnable) {
+            SetSepareteEffect();
+        }
     }
 
     void Update () {
         movementForce *= (Time.deltaTime * 60);
-
         rb.AddForce(movementForce);
 
         if (separateEffectEnable) {
@@ -49,43 +52,34 @@ public class TileBehaviour : MonoBehaviour {
         }
 	}
 
-    float CalcDistanceBetweenPoints(Vector3 start, Vector3 end) {
-        return Vector3.Distance(start, end);            
-    }
-
-    void PrepareSepareteEffect() {
+    /// <summary>
+    /// set the necessary variables for the separate effect
+    /// </summary>
+    void SetSepareteEffect() {
         if (topTile && bottomTile) {
+            
             //spawn effect
-            //top
-            topTilePos = topTile.transform.localPosition;
-            topTilePos.y = topTile.transform.localScale.y * 0.5f;
+            startTilePos = topTile.transform.localPosition;
+            startTilePos.y = topTile.transform.localScale.y * 0.5f;
 
-            topTilePosEnd = topTilePos;
-            topTilePosEnd.y = spaceBetweenTilesY;
+            endTilePos = startTilePos;
+            endTilePos.y = spaceBetweenTilesY;
 
-            topJourneyLength = CalcDistanceBetweenPoints(topTilePos, topTilePosEnd);
-
-            //end
-            bottomTilePos = bottomTile.transform.localPosition;
-            bottomTilePos.y = (bottomTile.transform.localScale.y * 0.5f) * -1.0f;
-
-            bottomTilePosEnd = bottomTilePos;
-            bottomTilePosEnd.y = spaceBetweenTilesY * -1.0f;
-
-            bottomJourneyLength = CalcDistanceBetweenPoints(bottomTilePos, bottomTilePosEnd);
-
-            topTile.transform.localPosition = topTilePos;
-            bottomTile.transform.localPosition = bottomTilePos;
+            topJourneyLength = Vector3.Distance(startTilePos, endTilePos);
 
             startTime = Time.time;
             separateEffectEnable = true;
         }
     }
 
+    /// <summary>
+    /// Separate the top and bottom tile 
+    /// </summary>
     void SeparateEffect() {          
         // distance moved = time * speed
         float distCovered = (Time.time - startTime) * effectSpeed;
 
+        // check if the effect has already reach the final point
         if (distCovered > topJourneyLength) {
             separateEffectEnable = false;
             return;
@@ -94,7 +88,7 @@ public class TileBehaviour : MonoBehaviour {
         // fraction of journey completed = current distance / total distance
         float fracJourney = distCovered / topJourneyLength;
        
-        topTile.transform.localPosition = Vector3.Lerp(topTilePos, topTilePosEnd, fracJourney);
-        bottomTile.transform.localPosition = Vector3.Lerp(bottomTilePos, bottomTilePosEnd, fracJourney);
+        topTile.transform.localPosition = Vector3.Lerp(startTilePos, endTilePos, fracJourney);
+        bottomTile.transform.localPosition = Vector3.Lerp(startTilePos * -1.0f, endTilePos * -1.0f, fracJourney);
     }
 }

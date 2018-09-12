@@ -285,3 +285,5 @@ MonoBehaviour:
   movementForce: {x: 0, y: 0, z: 0}
   topTile: {fileID: 1795953736756054}
   bottomTile: {fileID: 1719893296363478}
+  spaceBetweenTilesY: 0
+  effectSpeed: 5

@@ -67,8 +67,6 @@ public class GameController : MonoBehaviour {
     private Vector3[] bezierPoints;
     private int bezierIterator;
 
-
-    // Use this for initialization
     void Start () {
 
         nextTileLocation = startPoint;
@@ -118,7 +116,9 @@ public class GameController : MonoBehaviour {
         return null;
     }
 
-    //Initialize the stage
+    /// <summary>
+    /// Initialize the stage
+    /// </summary>
     void SetTheStage() {
 
         settingTheStage = true;
@@ -131,13 +131,13 @@ public class GameController : MonoBehaviour {
     }
 
    
-
+    /// <summary>
+    /// Spawn the next tile in the correct position
+    /// </summary>
     public void SpawnNextTile() {
 
         Vector3 nextTilePos;
-        var newTile = GetPooledTile(); 
-
-        
+        var newTile = GetPooledTile();        
 
         // Figure out where and at what rotation we should spawn
         // the next item
@@ -158,13 +158,20 @@ public class GameController : MonoBehaviour {
 
             newTile.transform.position = nextTileLocation;
             newTile.transform.rotation = nextTileRotation;
+
+            //active separate effect
+            newTile.GetComponent<TileBehaviour>().separateEffectEnable = true;
         }
 
         newTile.SetActive(true);
         lastTile = newTile;
     }
 
-
+    /// <summary>
+    /// Retuns a point from the the bezier list
+    /// </summary>
+    /// <param name="iterator">the position in the bezier array</param>
+    /// <returns> a point in the bezier curve</returns>
     Vector3 BezierPoint(ref int iterator) {
 
         Vector3 point = bezierPoints[iterator];
