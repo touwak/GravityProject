@@ -20,27 +20,41 @@ public class TileBehaviour : MonoBehaviour {
     public bool separateEffectEnable = false;
 
     Rigidbody rb;
-    
+    Renderer topTileRenderer;
+    Renderer bottomTileRenderer;
+
     //spawn effect
     Vector3 startTilePos;
     Vector3 endTilePos;
     float startTime;
     float topJourneyLength;
 
+    //reference to the game controller
+    private GameController gameController;
+
     void Start () {
         movementForce = new Vector3(movementSpeed, 0, 0);
         rb = GetComponent<Rigidbody>();
         spaceBetweenTilesY = FindObjectOfType<GameController>().spaceBetweenTilesY;
 
+        topTileRenderer = topTile.GetComponent<Renderer>();
+        bottomTileRenderer = bottomTile.GetComponent<Renderer>();
+
+        gameController = FindObjectOfType<GameController>();
+
         if (separateEffectEnable) {
             SetSepareteEffect();
         }
+
+        ChangeColor();
     }
 
     private void OnEnable() {
         if (separateEffectEnable) {
             SetSepareteEffect();
         }
+
+        ChangeColor();
     }
 
     void Update () {
@@ -51,6 +65,8 @@ public class TileBehaviour : MonoBehaviour {
             SeparateEffect();
         }
 	}
+
+    #region SEPARATE EFFECT
 
     /// <summary>
     /// set the necessary variables for the separate effect
@@ -90,5 +106,16 @@ public class TileBehaviour : MonoBehaviour {
        
         topTile.transform.localPosition = Vector3.Lerp(startTilePos, endTilePos, fracJourney);
         bottomTile.transform.localPosition = Vector3.Lerp(startTilePos * -1.0f, endTilePos * -1.0f, fracJourney);
+    }
+    #endregion
+
+    void ChangeColor() {
+        if (topTileRenderer != null) {
+            Color color = topTileRenderer.material.color;
+            color.g = gameController.GetColorIterator();
+            topTileRenderer.material.color = color;
+        }
+
+        //lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, 1));
     }
 }

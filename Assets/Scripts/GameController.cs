@@ -46,6 +46,7 @@ public class GameController : MonoBehaviour {
 
     [Tooltip("The number of divions of the bezier curve")]
     public int Divisions;
+    
 
     /// <summary>
     /// Where the next tile should be spawned at.
@@ -64,16 +65,23 @@ public class GameController : MonoBehaviour {
     
     private GameObject lastTile;
     private bool settingTheStage;
+
+    //bezier curve
     private Vector3[] bezierPoints;
     private int bezierIterator;
+
+    // iterator to change material colors in the tiles
+    private float colorIterator;
+
 
     void Start () {
 
         nextTileLocation = startPoint;
         nextTileRotation = Quaternion.identity;
 
-        bezierIterator = 0;
+        colorIterator = 0;
 
+        bezierIterator = 0;
         //create the bezier points
         bezierPoints = Handles.MakeBezierPoints(
             startBezierPoint, 
@@ -184,6 +192,19 @@ public class GameController : MonoBehaviour {
         }
 
         return point;
+    }
+
+    public float GetColorIterator() {
+        if(colorIterator < 1.0f) {
+            colorIterator += 0.1f;
+        }
+        else {
+            colorIterator -= 0.1f;
+        }
+
+        float result = colorIterator;
+                   
+        return result;
     }
 
 }
