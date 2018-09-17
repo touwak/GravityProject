@@ -27,24 +27,21 @@ public class GameController : MonoBehaviour {
     public float spaceBetweenTilesY = 20f;
 
     [Tooltip("The speed of the tiles")]
-    [Range(-1, 0)]
+    [Range(-0.10f, -0.01f)]
     public float tileMovementSpeed = -0.16f;
 
-    [Header("Bezier Curve")]
-    [Tooltip("The start point of the bezier curve")]
-    public Vector3 startBezierPoint;
+    [Header("Y Positions")]
+    [Tooltip("The start point of the Y positions")]
+    [Range(-5, 5)]
+    public float startYPoint;
 
-    [Tooltip("The end point of the bezier curve")]
-    public Vector3 endBezierPoint;
-
-    [Tooltip("The start tangent of the bezier curve")]
-    public Vector3 startTangent;
-
-    [Tooltip("The end tangent of the bezier curve")]
-    public Vector3 endTangent;
+    [Tooltip("The end point of the Y positions")]
+    [Range(-5, 5)]
+    public float endYPoint;
 
     [Tooltip("The number of divions of the bezier curve")]
-    public int Divisions;
+    [Range(0, 1)]
+    public float differenceBetweenSteps;
     
 
     /// <summary>
@@ -66,29 +63,18 @@ public class GameController : MonoBehaviour {
     private bool settingTheStage;
 
     //bezier curve
-    private Vector3[] bezierPoints;
-    private int bezierIterator;
-
-    // iterator to change material colors in the tiles
-    private float colorIterator;
-
+    private List<float> yPoints;
+    private int yPointIterator;
 
     void Start () {
 
         nextTileLocation = startPoint;
         nextTileRotation = Quaternion.identity;
 
-        colorIterator = 0;
-
-        bezierIterator = 0;
-        //create the bezier points
-        bezierPoints = Handles.MakeBezierPoints(
-            startBezierPoint, 
-            endBezierPoint, 
-            startTangent, 
-            endTangent, 
-            10
-            );
+        // Y points
+        yPointIterator = 0;
+        yPoints = new List<float>();
+        SetYPoints(startYPoint, endYPoint, differenceBetweenSteps);
 
         lastTile = new GameObject();
 
@@ -160,7 +146,7 @@ public class GameController : MonoBehaviour {
         else {
             nextTilePos = lastTile.transform.position;
             nextTilePos.x += spaceBetweenTiles;
-            nextTilePos.y = BezierPoint(ref bezierIterator).y;
+            nextTilePos.y = GetYPoint(ref yPointIterator);
             nextTileLocation = nextTilePos;
 
             newTile.transform.position = nextTileLocation;
@@ -174,20 +160,42 @@ public class GameController : MonoBehaviour {
         lastTile = newTile;
     }
 
+    void SetYPoints(float startValue, float endValue, float divisions) {
+        float currentValue = startValue;
+
+        while(currentValue < endValue) {
+            yPoints.Add(currentValue);
+
+            currentValue += divisions;
+        }  
+    }
+
+    bool goForward = true;
+
     /// <summary>
     /// Retuns a point from the the bezier list
     /// </summary>
     /// <param name="iterator">the position in the bezier array</param>
     /// <returns> a point in the bezier curve</returns>
-    Vector3 BezierPoint(ref int iterator) {
+    float GetYPoint(ref int iterator) {
 
-        Vector3 point = bezierPoints[iterator];
+       float point = yPoints[iterator];
 
-        if (bezierIterator < bezierPoints.Length - 1) {
-            iterator++;
+        if (goForward) {
+            if (yPointIterator < yPoints.Count - 1) {
+                iterator++;
+            }
+            else {
+                goForward = false;
+            }
         }
         else {
-            iterator = 0;
+            if (yPointIterator > 0) {
+                iterator--;
+            }
+            else {
+                goForward = true;
+            }
         }
 
         return point;

@@ -430,9 +430,7 @@ MonoBehaviour:
   initSpawnNum: 60
   spaceBetweenTiles: 1.1
   spaceBetweenTilesY: 20
-  tileMovementSpeed: -0.05
-  startBezierPoint: {x: 0, y: 0, z: 0}
-  endBezierPoint: {x: -6, y: 0, z: 0}
-  startTangent: {x: -2.7, y: 6, z: 0}
-  endTangent: {x: -3.2, y: -6, z: 0}
-  Divisions: 11
+  tileMovementSpeed: -0.0598
+  startYPoint: 0
+  endYPoint: 5
+  differenceBetweenSteps: 1
