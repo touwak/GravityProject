@@ -20,14 +20,14 @@ public class GameController : MonoBehaviour {
 
     [Tooltip("Space between the last tile and the new one")]
     [Range(1, 2)]
-    public float spaceBetweenTiles = 1.1f;
+    public float spaceBetweenCols = 1.1f;
 
     [Tooltip("Space between the top tile and the bottom one")]
     [Range(20, 50)]
     public float spaceBetweenTilesY = 20f;
 
     [Tooltip("The speed of the tiles")]
-    [Range(-0.10f, -0.01f)]
+    [Range(-0.1f, -10f)]
     public float tileMovementSpeed = -0.16f;
 
     [Header("Y Positions")]
@@ -36,12 +36,12 @@ public class GameController : MonoBehaviour {
     public float startYPoint;
 
     [Tooltip("The end point of the Y positions")]
-    [Range(-5, 5)]
+    [Range(0, 20)]
     public float endYPoint;
 
-    [Tooltip("The number of divions of the bezier curve")]
+    [Tooltip("The offset of the curve")]
     [Range(0, 1)]
-    public float differenceBetweenSteps;
+    public float offset;
     
 
     /// <summary>
@@ -74,7 +74,7 @@ public class GameController : MonoBehaviour {
         // Y points
         yPointIterator = 0;
         yPoints = new List<float>();
-        SetYPoints(startYPoint, endYPoint, differenceBetweenSteps);
+        SetYPoints(startYPoint, endYPoint, offset);
 
         lastTile = new GameObject();
 
@@ -140,12 +140,12 @@ public class GameController : MonoBehaviour {
             newTile.transform.rotation = nextTileRotation;
 
             nextTilePos = newTile.transform.position;
-            nextTilePos.x += spaceBetweenTiles;
+            nextTilePos.x += spaceBetweenCols;
             nextTileLocation = nextTilePos;
         }
         else {
             nextTilePos = lastTile.transform.position;
-            nextTilePos.x += spaceBetweenTiles;
+            nextTilePos.x += spaceBetweenCols;
             nextTilePos.y = GetYPoint(ref yPointIterator);
             nextTileLocation = nextTilePos;
 
@@ -160,23 +160,24 @@ public class GameController : MonoBehaviour {
         lastTile = newTile;
     }
 
-    void SetYPoints(float startValue, float endValue, float divisions) {
+
+    void SetYPoints(float startValue, float endValue, float offset) {
         float currentValue = startValue;
 
         while(currentValue < endValue) {
             yPoints.Add(currentValue);
 
-            currentValue += divisions;
+            currentValue += offset;
         }  
     }
 
     bool goForward = true;
 
     /// <summary>
-    /// Retuns a point from the the bezier list
+    /// Retuns a point from the the list
     /// </summary>
-    /// <param name="iterator">the position in the bezier array</param>
-    /// <returns> a point in the bezier curve</returns>
+    /// <param name="iterator">the position in the point array</param>
+    /// <returns> a point in the curve</returns>
     float GetYPoint(ref int iterator) {
 
        float point = yPoints[iterator];
