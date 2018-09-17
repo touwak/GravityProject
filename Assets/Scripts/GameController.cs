@@ -193,17 +193,4 @@ public class GameController : MonoBehaviour {
         return point;
     }
 
-    public float GetColorIterator() {
-        if(colorIterator < 1.0f) {
-            colorIterator += 0.1f;
-        }
-        else {
-            colorIterator -= 0.1f;
-        }
-
-        float result = colorIterator;
-                   
-        return result;
-    }
-
 }

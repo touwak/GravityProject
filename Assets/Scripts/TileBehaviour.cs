@@ -111,11 +111,7 @@ public class TileBehaviour : MonoBehaviour {
 
     void ChangeColor() {
         if (topTileRenderer != null) {
-            Color color = topTileRenderer.material.color;
-            color.g = gameController.GetColorIterator();
-            topTileRenderer.material.color = color;
+            topTileRenderer.material.color = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, 1)); ;
         }
-
-        //lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, 1));
     }
 }
