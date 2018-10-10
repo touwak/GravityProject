@@ -4,43 +4,35 @@ using UnityEngine;
 
 public class TileBehaviour : MonoBehaviour {
 
-    //seted in the game controller
-    [HideInInspector]
-    public float movementSpeed;
-    
-    public Vector3 movementForce;
-
-    public GameObject topTile;
-    public GameObject bottomTile;
-
-    public float spaceBetweenTilesY;
     public float effectSpeed = 1.0f;
 
     [HideInInspector]
     public bool separateEffectEnable = false;
 
+    [SerializeField]   
+    private GameObject topTile;
+    [SerializeField]
+    private GameObject bottomTile;
+
+    private float spaceBetweenTilesY;
+    private Vector3 movementForce;
+
     Rigidbody rb;
     Renderer topTileRenderer;
     Renderer bottomTileRenderer;
-
+   
     //spawn effect
     Vector3 startTilePos;
     Vector3 endTilePos;
     float startTime;
     float topJourneyLength;
 
-    //reference to the game controller
-    private GameController gameController;
-
     void Start () {
-        movementForce = new Vector3(movementSpeed, 0, 0);
+       
         rb = GetComponent<Rigidbody>();
-        spaceBetweenTilesY = FindObjectOfType<GameController>().spaceBetweenTilesY;
 
         topTileRenderer = topTile.GetComponent<Renderer>();
         bottomTileRenderer = bottomTile.GetComponent<Renderer>();
-
-        gameController = FindObjectOfType<GameController>();
 
         if (separateEffectEnable) {
             SetSepareteEffect();
@@ -48,6 +40,7 @@ public class TileBehaviour : MonoBehaviour {
 
         ChangeColor();
     }
+
 
     private void OnEnable() {
         if (separateEffectEnable) {
@@ -66,8 +59,23 @@ public class TileBehaviour : MonoBehaviour {
         }
 	}
 
-    #region SEPARATE EFFECT
+    /// <summary>
+    /// Set the speed movement of the tile
+    /// </summary>
+    /// <param name="movementSpeed"> speed </param>
+    public void SetMovementSpeed(float movementSpeed) {
+        movementForce = new Vector3(movementSpeed, 0, 0);
+    }
 
+    /// <summary>
+    /// Set the space between top and bottom tile
+    /// </summary>
+    /// <param name="separation">space between tiles</param>
+    public void SetSpaceBetweenTilesY(float separation) {
+        spaceBetweenTilesY = separation;
+    }
+
+    #region SEPARATE EFFECT
     /// <summary>
     /// set the necessary variables for the separate effect
     /// </summary>

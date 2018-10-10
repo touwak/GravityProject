@@ -40,7 +40,7 @@ public class GameController : MonoBehaviour {
     public float endYPoint;
 
     [Tooltip("The offset of the curve")]
-    [Range(0, 1)]
+    [Range(0.01f, 4)]
     public float offset;
     
 
@@ -62,11 +62,17 @@ public class GameController : MonoBehaviour {
     private GameObject lastTile;
     private bool settingTheStage;
 
-    //bezier curve
+    //Curve
     private List<float> yPoints;
+    private List<float> yPoints2;
     private int yPointIterator;
+    bool goForward;
+    bool changeDifficult;
 
     void Start () {
+
+        goForward = true;
+        changeDifficult = false;
 
         nextTileLocation = startPoint;
         nextTileRotation = Quaternion.identity;
@@ -82,15 +88,24 @@ public class GameController : MonoBehaviour {
         tiles = new List<GameObject>();
         for (int i = 0; i < initPoolNum; ++i) {
             var newTile = Instantiate(tile, nextTileLocation, nextTileRotation);
-            newTile.GetComponent<TileBehaviour>().movementSpeed = tileMovementSpeed;
+            newTile.GetComponent<TileBehaviour>().SetMovementSpeed(tileMovementSpeed);
+            newTile.GetComponent<TileBehaviour>().SetSpaceBetweenTilesY(spaceBetweenTilesY);
             newTile.SetActive(false);
 
             tiles.Add(newTile);
         }
 
       
-        SetTheStage();
-        
+        SetTheStage();  
+    }
+
+    public void SetDifficult() {
+        for(int i = 0; i < tiles.Count; i++) {
+            tiles[i].GetComponent<TileBehaviour>().SetMovementSpeed(tileMovementSpeed);
+            tiles[i].GetComponent<TileBehaviour>().SetSpaceBetweenTilesY(spaceBetweenTilesY);
+        }
+
+        SetYPoints(startYPoint, endYPoint, offset);
     }
 
     /// <summary>
@@ -160,18 +175,36 @@ public class GameController : MonoBehaviour {
         lastTile = newTile;
     }
 
-
+    /// <summary>
+    /// The different points of the curve
+    /// </summary>
+    /// <param name="startValue">first point of the curve</param>
+    /// <param name="endValue">last point of the curve</param>
+    /// <param name="offset">offset between points</param>
     void SetYPoints(float startValue, float endValue, float offset) {
+
+        List<float> result = new List<float>();
+
         float currentValue = startValue;
 
         while(currentValue < endValue) {
-            yPoints.Add(currentValue);
+            result.Add(currentValue);
 
             currentValue += offset;
-        }  
+        } 
+
+        if(yPoints.Count == 0) {
+            yPoints = result;
+        }
+        else {
+            yPoints2 = result;
+            changeDifficult = true;
+        }
     }
 
-    bool goForward = true;
+
+
+    
 
     /// <summary>
     /// Retuns a point from the the list
@@ -179,6 +212,15 @@ public class GameController : MonoBehaviour {
     /// <param name="iterator">the position in the point array</param>
     /// <returns> a point in the curve</returns>
     float GetYPoint(ref int iterator) {
+
+        if(iterator > yPoints.Count) {
+            //TODO do it in a function
+            if (changeDifficult) {
+                yPoints = yPoints2;
+                changeDifficult = false;
+            }
+            iterator = 0;
+        }
 
        float point = yPoints[iterator];
 

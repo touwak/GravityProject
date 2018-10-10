@@ -232,7 +232,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 124
   m_CollisionDetection: 0
 --- !u!65 &65175065716462740
 BoxCollider:
@@ -281,9 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a280be99a52caaa479654387d4b545a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: -0.02
-  movementForce: {x: 0, y: 0, z: 0}
+  effectSpeed: 3.01
+  separateEffectEnable: 0
   topTile: {fileID: 1795953736756054}
   bottomTile: {fileID: 1719893296363478}
-  spaceBetweenTilesY: 0
-  effectSpeed: 5
