@@ -99,15 +99,6 @@ public class GameController : MonoBehaviour {
         SetTheStage();  
     }
 
-    public void SetDifficult() {
-        for(int i = 0; i < tiles.Count; i++) {
-            tiles[i].GetComponent<TileBehaviour>().SetMovementSpeed(tileMovementSpeed);
-            tiles[i].GetComponent<TileBehaviour>().SetSpaceBetweenTilesY(spaceBetweenTilesY);
-        }
-
-        SetYPoints(startYPoint, endYPoint, offset);
-    }
-
     /// <summary>
     /// Will spawn a tile at a certain location and setup the next position
     /// </summary>
@@ -200,11 +191,7 @@ public class GameController : MonoBehaviour {
             yPoints2 = result;
             changeDifficult = true;
         }
-    }
-
-
-
-    
+    }   
 
     /// <summary>
     /// Retuns a point from the the list
@@ -213,12 +200,10 @@ public class GameController : MonoBehaviour {
     /// <returns> a point in the curve</returns>
     float GetYPoint(ref int iterator) {
 
-        if(iterator > yPoints.Count) {
-            //TODO do it in a function
-            if (changeDifficult) {
-                yPoints = yPoints2;
-                changeDifficult = false;
-            }
+        if(iterator > yPoints.Count) {          
+            iterator = yPoints.Count - 1;
+        }
+        else if(iterator < 0) {
             iterator = 0;
         }
 
@@ -230,6 +215,10 @@ public class GameController : MonoBehaviour {
             }
             else {
                 goForward = false;
+
+                if (changeDifficult) {
+                    ChangeDifficult(goForward, ref iterator);
+                }
             }
         }
         else {
@@ -238,10 +227,54 @@ public class GameController : MonoBehaviour {
             }
             else {
                 goForward = true;
+
+                if (changeDifficult) {
+                    ChangeDifficult(goForward, ref iterator);
+                }
             }
         }
 
         return point;
     }
+
+    #region DIFFICULT
+
+    /// <summary>
+    /// Set the new Y points, the tiles speed and the separation between
+    /// </summary>
+    public void SetDifficult() {
+        for (int i = 0; i < tiles.Count; i++) {
+            tiles[i].GetComponent<TileBehaviour>().SetMovementSpeed(tileMovementSpeed);
+            tiles[i].GetComponent<TileBehaviour>().SetSpaceBetweenTilesY(spaceBetweenTilesY);
+        }
+
+        SetYPoints(startYPoint, endYPoint, offset);
+    }
+
+    /// <summary>
+    /// Change the difficult setting the new Y points and set the iterator
+    /// </summary>
+    /// <param name="forward">the direction of the reading</param>
+    /// <param name="iterator">the iterator of the array</param>
+    void ChangeDifficult(bool forward, ref int iterator) {
+        yPoints.Clear();
+
+        for(int i = 0; i < yPoints2.Count; i++) {
+            yPoints.Add(yPoints2[i]);
+        }
+        
+        yPoints2.Clear();
+
+        if (!forward) {
+            iterator = yPoints.Count - 1;
+        }
+        else {
+            iterator = 0;
+        }
+
+        changeDifficult = false;
+    }
+
+    #endregion
 
 }
