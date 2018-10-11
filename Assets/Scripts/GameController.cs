@@ -69,7 +69,22 @@ public class GameController : MonoBehaviour {
     bool goForward;
     bool changeDifficult;
 
+    //color
+    Color[] colors;
+    Color secondColor;
+
     void Start () {
+
+        colors = new Color[] {
+            Color.blue,
+            Color.cyan,
+            Color.green,
+            Color.magenta,
+            Color.white,
+            Color.yellow
+        };
+
+        SetSecondColor();
 
         goForward = true;
         changeDifficult = false;
@@ -88,8 +103,10 @@ public class GameController : MonoBehaviour {
         tiles = new List<GameObject>();
         for (int i = 0; i < initPoolNum; ++i) {
             var newTile = Instantiate(tile, nextTileLocation, nextTileRotation);
-            newTile.GetComponent<TileBehaviour>().SetMovementSpeed(tileMovementSpeed);
-            newTile.GetComponent<TileBehaviour>().SetSpaceBetweenTilesY(spaceBetweenTilesY);
+            TileBehaviour tileBehaviour = newTile.GetComponent<TileBehaviour>();
+            tileBehaviour.SetMovementSpeed(tileMovementSpeed);
+            tileBehaviour.SetSpaceBetweenTilesY(spaceBetweenTilesY);
+            tileBehaviour.SetSecondColor(secondColor);
             newTile.SetActive(false);
 
             tiles.Add(newTile);
@@ -260,9 +277,9 @@ public class GameController : MonoBehaviour {
         yPoints.Clear();
 
         for(int i = 0; i < yPoints2.Count; i++) {
-            yPoints.Add(yPoints2[i]);
+            yPoints.Add(yPoints2[i]);           
         }
-        
+
         yPoints2.Clear();
 
         if (!forward) {
@@ -273,8 +290,27 @@ public class GameController : MonoBehaviour {
         }
 
         changeDifficult = false;
+
+        SetTileSecondColor();
     }
 
     #endregion
 
+    Color RandColor() {
+        int i = Random.Range(0, colors.Length);
+
+        return colors[i];
+    }
+
+    void SetSecondColor() {
+        secondColor = RandColor();
+    }
+
+    void SetTileSecondColor() {
+        SetSecondColor();
+
+        for(int i = 0; i < tiles.Count; i++) {
+            tiles[i].GetComponent<TileBehaviour>().SetSecondColor(secondColor);
+        }
+    }
 }

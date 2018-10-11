@@ -27,6 +27,11 @@ public class TileBehaviour : MonoBehaviour {
     float startTime;
     float topJourneyLength;
 
+    //Color
+    Color[] colors;
+    Color firstColor;
+    Color secondColor;
+
     void Start () {
        
         rb = GetComponent<Rigidbody>();
@@ -38,7 +43,19 @@ public class TileBehaviour : MonoBehaviour {
             SetSepareteEffect();
         }
 
-        ChangeColor();
+        colors = new Color[] {
+            Color.blue,
+            Color.cyan,
+            Color.green,
+            Color.magenta,
+            Color.white,
+            Color.yellow
+        };
+
+         
+
+        ChangeColor(topTileRenderer);
+        ChangeColor(bottomTileRenderer);
     }
 
 
@@ -47,7 +64,8 @@ public class TileBehaviour : MonoBehaviour {
             SetSepareteEffect();
         }
 
-        ChangeColor();
+        ChangeColor(topTileRenderer);
+        ChangeColor(bottomTileRenderer);
     }
 
     void Update () {
@@ -117,9 +135,32 @@ public class TileBehaviour : MonoBehaviour {
     }
     #endregion
 
-    void ChangeColor() {
-        if (topTileRenderer != null) {
-            topTileRenderer.material.color = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, 1)); ;
+    Color RandColor() {
+        int i = Random.Range(0, colors.Length);
+
+        return colors[i];
+    }
+
+    public void SetColors(ref Color first, ref Color second) {
+        first = RandColor();
+        second = RandColor();
+
+        while (second == first) {
+            second = RandColor();
+        }
+    }
+
+    public void SetColor(ref Color color) {
+        color = RandColor();        
+    }
+
+    public void SetSecondColor(Color color) {
+        secondColor = color;
+    }
+
+    void ChangeColor(Renderer renderer) {
+        if (renderer != null) {
+            renderer.material.color = Color.Lerp(Color.black, secondColor, Mathf.PingPong(Time.time, 1)); ;
         }
     }
 }
