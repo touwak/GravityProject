@@ -75,6 +75,7 @@ public class GameController : MonoBehaviour {
 
     void Start () {
 
+        //colors
         colors = new Color[] {
             Color.blue,
             Color.cyan,
@@ -86,16 +87,17 @@ public class GameController : MonoBehaviour {
 
         SetSecondColor();
 
-        goForward = true;
         changeDifficult = false;
-
-        nextTileLocation = startPoint;
-        nextTileRotation = Quaternion.identity;
-
+        
         // Y points
         yPointIterator = 0;
         yPoints = new List<float>();
         SetYPoints(startYPoint, endYPoint, offset);
+        goForward = true;
+
+        //tiles
+        nextTileLocation = startPoint;
+        nextTileRotation = Quaternion.identity;
 
         lastTile = new GameObject();
 
@@ -296,16 +298,28 @@ public class GameController : MonoBehaviour {
 
     #endregion
 
+    #region COLORS
+
+    /// <summary>
+    /// returns a random color from the array
+    /// </summary>
+    /// <returns>color</returns>
     Color RandColor() {
         int i = Random.Range(0, colors.Length);
 
         return colors[i];
     }
 
+    /// <summary>
+    /// set the second color
+    /// </summary>
     void SetSecondColor() {
         secondColor = RandColor();
     }
 
+    /// <summary>
+    /// set the second color of every tile
+    /// </summary>
     void SetTileSecondColor() {
         SetSecondColor();
 
@@ -313,4 +327,6 @@ public class GameController : MonoBehaviour {
             tiles[i].GetComponent<TileBehaviour>().SetSecondColor(secondColor);
         }
     }
+
+    #endregion
 }

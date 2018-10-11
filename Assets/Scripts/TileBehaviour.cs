@@ -28,8 +28,6 @@ public class TileBehaviour : MonoBehaviour {
     float topJourneyLength;
 
     //Color
-    Color[] colors;
-    Color firstColor;
     Color secondColor;
 
     void Start () {
@@ -41,18 +39,7 @@ public class TileBehaviour : MonoBehaviour {
 
         if (separateEffectEnable) {
             SetSepareteEffect();
-        }
-
-        colors = new Color[] {
-            Color.blue,
-            Color.cyan,
-            Color.green,
-            Color.magenta,
-            Color.white,
-            Color.yellow
-        };
-
-         
+        }      
 
         ChangeColor(topTileRenderer);
         ChangeColor(bottomTileRenderer);
@@ -135,32 +122,44 @@ public class TileBehaviour : MonoBehaviour {
     }
     #endregion
 
-    Color RandColor() {
-        int i = Random.Range(0, colors.Length);
+    #region COLORS
 
-        return colors[i];
-    }
+    //Color RandColor() {
+    //    int i = Random.Range(0, colors.Length);
 
-    public void SetColors(ref Color first, ref Color second) {
-        first = RandColor();
-        second = RandColor();
+    //    return colors[i];
+    //}
 
-        while (second == first) {
-            second = RandColor();
-        }
-    }
+    //public void SetColors(ref Color first, ref Color second) {
+    //    first = RandColor();
+    //    second = RandColor();
 
-    public void SetColor(ref Color color) {
-        color = RandColor();        
-    }
+    //    while (second == first) {
+    //        second = RandColor();
+    //    }
+    //}
 
+    //public void SetColor(ref Color color) {
+    //    color = RandColor();        
+    //}
+
+    /// <summary>
+    /// Set the second color of the color lerp
+    /// </summary>
+    /// <param name="color">new color</param>
     public void SetSecondColor(Color color) {
         secondColor = color;
     }
 
+    /// <summary>
+    /// Change the material color
+    /// </summary>
+    /// <param name="renderer">render that contains the material</param>
     void ChangeColor(Renderer renderer) {
         if (renderer != null) {
             renderer.material.color = Color.Lerp(Color.black, secondColor, Mathf.PingPong(Time.time, 1)); ;
         }
     }
+
+    #endregion
 }
