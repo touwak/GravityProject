@@ -30,10 +30,12 @@ public class TileBehaviour : MonoBehaviour {
     //Color
     Color secondColor;
 
+    private void Awake() {
+        rb = GetComponent<Rigidbody>();
+    }
+
     void Start () {
        
-        rb = GetComponent<Rigidbody>();
-
         topTileRenderer = topTile.GetComponent<Renderer>();
         bottomTileRenderer = bottomTile.GetComponent<Renderer>();
 
@@ -46,7 +48,7 @@ public class TileBehaviour : MonoBehaviour {
     }
 
 
-    private void OnEnable() {
+    void OnEnable() {
         if (separateEffectEnable) {
             SetSepareteEffect();
         }
@@ -56,8 +58,6 @@ public class TileBehaviour : MonoBehaviour {
     }
 
     void Update () {
-        movementForce *= (Time.deltaTime * 60);
-        rb.AddForce(movementForce);
 
         if (separateEffectEnable) {
             SeparateEffect();
@@ -67,9 +67,9 @@ public class TileBehaviour : MonoBehaviour {
     /// <summary>
     /// Set the speed movement of the tile
     /// </summary>
-    /// <param name="movementSpeed"> speed </param>
-    public void SetMovementSpeed(float movementSpeed) {
-        movementForce = new Vector3(movementSpeed, 0, 0);
+    /// <param name="speed"> tile speed </param>
+    public void SetVelocity(float speed) {
+        rb.velocity = new Vector3(speed * -1f, 0, 0);
     }
 
     /// <summary>
@@ -123,26 +123,6 @@ public class TileBehaviour : MonoBehaviour {
     #endregion
 
     #region COLORS
-
-    //Color RandColor() {
-    //    int i = Random.Range(0, colors.Length);
-
-    //    return colors[i];
-    //}
-
-    //public void SetColors(ref Color first, ref Color second) {
-    //    first = RandColor();
-    //    second = RandColor();
-
-    //    while (second == first) {
-    //        second = RandColor();
-    //    }
-    //}
-
-    //public void SetColor(ref Color color) {
-    //    color = RandColor();        
-    //}
-
     /// <summary>
     /// Set the second color of the color lerp
     /// </summary>
@@ -157,9 +137,8 @@ public class TileBehaviour : MonoBehaviour {
     /// <param name="renderer">render that contains the material</param>
     void ChangeColor(Renderer renderer) {
         if (renderer != null) {
-            renderer.material.color = Color.Lerp(Color.black, secondColor, Mathf.PingPong(Time.time, 1)); ;
+            renderer.material.color = Color.Lerp(Color.black, secondColor, Mathf.PingPong(Time.time, 1));
         }
     }
-
     #endregion
 }

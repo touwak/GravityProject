@@ -784,7 +784,7 @@ MonoBehaviour:
   initSpawnNum: 60
   spaceBetweenCols: 1.1
   spaceBetweenTilesY: 21.7
-  tileMovementSpeed: -0.1
+  tileMovementSpeed: -10
   startYPoint: 0
   endYPoint: 10
-  offset: 0.93
+  offset: 1.65

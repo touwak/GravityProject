@@ -27,8 +27,8 @@ public class GameController : MonoBehaviour {
     public float spaceBetweenTilesY = 20f;
 
     [Tooltip("The speed of the tiles")]
-    [Range(-0.1f, -10f)]
-    public float tileMovementSpeed = -0.16f;
+    [Range(1f, 10f)]
+    public float tileMovementSpeed = 0.16f;
 
     [Header("Y Positions")]
     [Tooltip("The start point of the Y positions")]
@@ -106,7 +106,7 @@ public class GameController : MonoBehaviour {
         for (int i = 0; i < initPoolNum; ++i) {
             var newTile = Instantiate(tile, nextTileLocation, nextTileRotation);
             TileBehaviour tileBehaviour = newTile.GetComponent<TileBehaviour>();
-            tileBehaviour.SetMovementSpeed(tileMovementSpeed);
+            tileBehaviour.SetVelocity(tileMovementSpeed);
             tileBehaviour.SetSpaceBetweenTilesY(spaceBetweenTilesY);
             tileBehaviour.SetSecondColor(secondColor);
             newTile.SetActive(false);
@@ -263,8 +263,9 @@ public class GameController : MonoBehaviour {
     /// </summary>
     public void SetDifficult() {
         for (int i = 0; i < tiles.Count; i++) {
-            tiles[i].GetComponent<TileBehaviour>().SetMovementSpeed(tileMovementSpeed);
-            tiles[i].GetComponent<TileBehaviour>().SetSpaceBetweenTilesY(spaceBetweenTilesY);
+            //TileBehaviour tileBehaviour = tiles[i].GetComponent<TileBehaviour>();
+            //tileBehaviour.SetVelocity(tileMovementSpeed);
+            //tileBehaviour.SetSpaceBetweenTilesY(spaceBetweenTilesY);
         }
 
         SetYPoints(startYPoint, endYPoint, offset);
@@ -305,7 +306,19 @@ public class GameController : MonoBehaviour {
     /// </summary>
     /// <returns>color</returns>
     Color RandColor() {
+
+        Random.State originalRandomState = Random.state;
+
+        var seed = Random.Range(0, int.MaxValue);
+        seed ^= (int)System.DateTime.Now.Ticks;
+        seed ^= (int)Time.unscaledTime;
+        seed &= int.MaxValue;
+
+        Random.InitState(seed);
+
         int i = Random.Range(0, colors.Length);
+
+        Random.state = originalRandomState;
 
         return colors[i];
     }
@@ -314,7 +327,13 @@ public class GameController : MonoBehaviour {
     /// set the second color
     /// </summary>
     void SetSecondColor() {
-        secondColor = RandColor();
+        Color color = RandColor();
+
+        while (secondColor == color) {
+            color = RandColor();
+        }
+
+        secondColor = color;
     }
 
     /// <summary>
