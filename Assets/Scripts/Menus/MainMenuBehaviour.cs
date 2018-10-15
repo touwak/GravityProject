@@ -10,5 +10,12 @@ public class MainMenuBehaviour : MonoBehaviour {
     /// to go to</param>
     public void LoadLevel(string levelName) {
         SceneManager.LoadScene(levelName);
+
+#if UNITY_ADS
+        if (UnityAdController.showAds) {
+            // Show an ad
+            UnityAdController.ShowAd();
+        }
+#endif
     }
 }

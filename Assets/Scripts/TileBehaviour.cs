@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TileBehaviour : MonoBehaviour {
 
@@ -29,6 +30,10 @@ public class TileBehaviour : MonoBehaviour {
 
     //Color
     Color secondColor;
+
+    GameObject player;
+    [Tooltip("How long to wait before restarting the game")]
+    public float waitTime = 1.0f;
 
     private void Awake() {
         rb = GetComponent<Rigidbody>();
@@ -142,11 +147,75 @@ public class TileBehaviour : MonoBehaviour {
     }
     #endregion
 
+    #region PLAYER DIE AND CONTINUE
+
     private void OnCollisionEnter(Collision collision) {
-        var playerBehaviour = collision.gameObject.GetComponent<PlayerBehaviour>();
 
-        if(playerBehaviour != null) {
+        if(collision.gameObject.GetComponent<PlayerBehaviour>()) {
 
+            // Destroy (Hide) the player
+            collision.gameObject.SetActive(false);
+            player = collision.gameObject;
+
+            // Call the function ResetGame after waitTime
+            // has passed
+            Invoke("ResetGame", waitTime);
         }
     }
+
+    /// <summary>
+    /// Will restart the currently loaded level
+    /// </summary>
+    void ResetGame() {
+        //Bring up restart menu
+        var go = GetGameOverMenu();
+        go.SetActive(true);
+
+        // Get our continue button
+        var buttons = go.transform.GetComponentsInChildren<Button>();
+        UnityEngine.UI.Button continueButton = null;
+
+        foreach (var button in buttons) {
+            if (button.gameObject.name == "Continue Button") {
+                continueButton = button;
+                break;
+            }
+        }
+
+        if (continueButton) {
+            #if UNITY_ADS
+            // If player clicks on button we want to play ad and
+            // then continue
+            continueButton.onClick.AddListener(UnityAdController.ShowRewardAd);
+            UnityAdController.tile = this;
+            #else
+            // If can't play an ad, no need for continue button
+            continueButton.gameObject.SetActive(false);
+            #endif
+        }
+    }
+
+    /// <summary>
+    /// Handles resetting the game if needed
+    /// </summary>
+    public void Continue() {
+        var go = GetGameOverMenu();
+        go.SetActive(false);
+
+        //TODO move the player
+        player.transform.position = transform.position;
+        player.SetActive(true);
+
+        
+    }
+
+    /// <summary>
+    /// Retrieves the Game Over menu game object
+    /// </summary>
+    /// <returns>The Game Over menu object</returns>
+    GameObject GetGameOverMenu() {
+        return GameObject.Find("Canvas").transform.Find("Game Over").gameObject;
+    }
+
+    #endregion
 }

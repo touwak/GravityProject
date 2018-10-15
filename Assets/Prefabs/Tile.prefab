@@ -285,3 +285,4 @@ MonoBehaviour:
   separateEffectEnable: 0
   topTile: {fileID: 1795953736756054}
   bottomTile: {fileID: 1719893296363478}
+  waitTime: 2

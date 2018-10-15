@@ -28,6 +28,8 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
 
     void Start() {
         paused = false;
+#if !UNITY_ADS // If not using ads, just start the game
         SetPauseMenu(false);
+#endif
     }
 }
