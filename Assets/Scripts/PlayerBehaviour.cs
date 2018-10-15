@@ -18,9 +18,18 @@ public class PlayerBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        // If the game is paused, don't do anything
+        if (PauseScreenBehaviour.paused) {
+            return;
+        }
+
         DetectInput();
 	}
 
+    /// <summary>
+    /// detect the player input
+    /// </summary>
     void DetectInput() {
         //Check if we are running either in the Unity editor or in a
         //standalone build.
@@ -40,8 +49,10 @@ public class PlayerBehaviour : MonoBehaviour {
 #endif
     }
 
+    /// <summary>
+    /// Change the player's gravity
+    /// </summary>
     void ChangeGravity() {
-
         gravityForce *= -1;
         cf.force = new Vector3(0, gravityForce, 0);
     }

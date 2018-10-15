@@ -141,4 +141,12 @@ public class TileBehaviour : MonoBehaviour {
         }
     }
     #endregion
+
+    private void OnCollisionEnter(Collision collision) {
+        var playerBehaviour = collision.gameObject.GetComponent<PlayerBehaviour>();
+
+        if(playerBehaviour != null) {
+
+        }
+    }
 }
