@@ -267,6 +267,21 @@ public class TileBehaviour : MonoBehaviour {
                 // Come back after 1 second and check again
                 yield return new WaitForSeconds(1f);
             }
+            else if (!UnityAdController.showAds) {
+                // It's valid to click the button now
+                contButton.interactable = true;
+                
+                // If player clicks on button we want to just continue
+                contButton.onClick.AddListener(Continue);
+
+                UnityAdController.tile = this;
+                
+                // Change text to allow continue
+                btnText.text = "Free Continue";
+                
+                // We can now leave the coroutine
+                break;
+            }
             else {
                 // It's valid to click the button now
                 contButton.interactable = true;

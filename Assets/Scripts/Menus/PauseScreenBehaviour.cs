@@ -26,10 +26,20 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
         pauseMenu.SetActive(paused);
     }
 
-    void Start() {
+    protected override void Start() {
+        // Initalize Ads if needed
+        base.Start();
         paused = false;
-#if !UNITY_ADS // If not using ads, just start the game
+        
+        // If no ads at all, just unpause
+        #if !UNITY_ADS
         SetPauseMenu(false);
-#endif
+        #else
+        
+        // If we support ads but they're removed, unpause as well
+        if (!UnityAdController.showAds) {
+            SetPauseMenu(false);
+        }
+        #endif
     }
 }
