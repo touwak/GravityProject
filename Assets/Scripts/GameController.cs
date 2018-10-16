@@ -185,6 +185,8 @@ public class GameController : MonoBehaviour {
         lastTile = newTile;
     }
 
+    #region Y POINTS
+
     /// <summary>
     /// The different points of the curve
     /// </summary>
@@ -256,6 +258,8 @@ public class GameController : MonoBehaviour {
         return point;
     }
 
+    #endregion
+
     #region DIFFICULT
 
     /// <summary>
@@ -295,6 +299,12 @@ public class GameController : MonoBehaviour {
         changeDifficult = false;
 
         SetTileSecondColor();
+    }
+
+    public void SetTilesSpeed(float speed) {
+        foreach (GameObject tile in tiles) {
+            tile.GetComponent<TileBehaviour>().SetVelocity(speed);
+        }
     }
 
     #endregion

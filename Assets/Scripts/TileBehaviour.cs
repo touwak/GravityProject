@@ -16,7 +16,7 @@ public class TileBehaviour : MonoBehaviour {
     private GameObject bottomTile;
 
     private float spaceBetweenTilesY;
-    private Vector3 movementForce;
+    private float movementSpeed;
 
     Rigidbody rb;
     Renderer topTileRenderer;
@@ -33,7 +33,7 @@ public class TileBehaviour : MonoBehaviour {
 
     GameObject player;
     [Tooltip("How long to wait before restarting the game")]
-    public float waitTime = 1.0f;
+    public float waitTime = 0.5f;
 
     private void Awake() {
         rb = GetComponent<Rigidbody>();
@@ -74,6 +74,10 @@ public class TileBehaviour : MonoBehaviour {
     /// </summary>
     /// <param name="speed"> tile speed </param>
     public void SetVelocity(float speed) {
+        if (speed > 0) {
+            movementSpeed = speed;
+        }
+
         rb.velocity = new Vector3(speed * -1f, 0, 0);
     }
 
@@ -147,16 +151,21 @@ public class TileBehaviour : MonoBehaviour {
     }
     #endregion
 
-    #region PLAYER DIE AND CONTINUE
+    #region PLAYER DIE AND GAME OVER
 
     private void OnCollisionEnter(Collision collision) {
 
         if(collision.gameObject.GetComponent<PlayerBehaviour>()) {
 
+            //keep moving the tile in the same direction
+            //SetVelocity(movementSpeed);
+            StopOrRestartAllTiles(true);
+
             // Destroy (Hide) the player
             collision.gameObject.SetActive(false);
             player = collision.gameObject;
 
+            
             // Call the function ResetGame after waitTime
             // has passed
             Invoke("ResetGame", waitTime);
@@ -206,7 +215,7 @@ public class TileBehaviour : MonoBehaviour {
         player.transform.position = transform.position;
         player.SetActive(true);
 
-        
+        StopOrRestartAllTiles(false);
     }
 
     /// <summary>
@@ -215,6 +224,18 @@ public class TileBehaviour : MonoBehaviour {
     /// <returns>The Game Over menu object</returns>
     GameObject GetGameOverMenu() {
         return GameObject.Find("Canvas").transform.Find("Game Over").gameObject;
+    }
+
+    void StopOrRestartAllTiles(bool stop) {
+
+        GameController gc = FindObjectOfType<GameController>();
+
+        if (stop) {
+            gc.SetTilesSpeed(0);
+        }
+        else {
+            gc.SetTilesSpeed(movementSpeed);
+        }
     }
 
     #endregion
