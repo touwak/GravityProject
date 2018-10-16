@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour {
 
-    [Range(10f, 50f)]
+    [Range(1f, 10f)]
     [Tooltip("The force of the gravity")]
     public float gravityForce;
 
@@ -14,6 +15,8 @@ public class PlayerBehaviour : MonoBehaviour {
 	void Start () {
         cf = GetComponent<ConstantForce>();
         cf.force = new Vector3(0, gravityForce * -1f, 0);
+
+        score = 0;
     }
 	
 	// Update is called once per frame
@@ -23,6 +26,8 @@ public class PlayerBehaviour : MonoBehaviour {
         if (PauseScreenBehaviour.paused) {
             return;
         }
+
+        score += Time.deltaTime;
 
         DetectInput();
 	}
@@ -55,5 +60,19 @@ public class PlayerBehaviour : MonoBehaviour {
     void ChangeGravity() {
         gravityForce *= -1;
         cf.force = new Vector3(0, gravityForce, 0);
+    }
+
+    private float score = 0;
+    public Text scoreText;
+
+    public float Score {
+        get { return score; }
+        set {
+            score = value;
+            
+            // Update the text to display the whole number portion
+            // of the score
+            scoreText.text = string.Format("{0:0}", score);
+        }
     }
 }
