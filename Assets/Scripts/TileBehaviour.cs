@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -195,7 +195,7 @@ public class TileBehaviour : MonoBehaviour {
             #if UNITY_ADS
             // If player clicks on button we want to play ad and
             // then continue
-            continueButton.onClick.AddListener(UnityAdController.ShowRewardAd);
+            StartCoroutine(ShowContinue(continueButton));
             UnityAdController.tile = this;
             #else
             // If can't play an ad, no need for continue button
@@ -235,6 +235,54 @@ public class TileBehaviour : MonoBehaviour {
         }
         else {
             gc.SetTilesSpeed(movementSpeed);
+        }
+    }
+
+    public IEnumerator ShowContinue(UnityEngine.UI.Button contButton) {
+
+        while (true) {
+            var btnText = contButton.GetComponentInChildren<Text>();
+            
+            // Check if we haven't reached the next reward time yet
+            // (if one exists)
+            if (UnityAdController.nextRewardTime.HasValue &&
+                (DateTime.Now < UnityAdController.nextRewardTime.Value)) {
+
+                // Unable to click on the button
+                contButton.interactable = false;
+                
+                // Get the time remaining until we get to the next
+                // reward time
+                TimeSpan remaining = UnityAdController.nextRewardTime.Value
+                - DateTime.Now;
+                
+                // Get the time left in the following format 99:99
+                var countdownText = string.Format("{0:D2}:{1:D2}",
+                remaining.Minutes,
+                remaining.Seconds);
+
+                // Set our button's text to reflect the new time
+                btnText.text = countdownText;
+                
+                // Come back after 1 second and check again
+                yield return new WaitForSeconds(1f);
+            }
+            else {
+                // It's valid to click the button now
+                contButton.interactable = true;
+                
+                // If player clicks on button we want to play ad and
+                // then continue
+                contButton.onClick.AddListener(UnityAdController.ShowRewardAd);
+
+                UnityAdController.tile = this;
+                
+                // Change text to its original version
+                btnText.text = "Continue (Play Ad)";
+                
+                // We can now leave the coroutine
+                break;
+            }
         }
     }
 

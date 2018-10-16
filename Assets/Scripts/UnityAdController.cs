@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 #if UNITY_ADS // Can only compile ad code on support platforms
 using UnityEngine.Advertisements; // Advertisement
 #endif
@@ -7,6 +8,9 @@ public class UnityAdController : MonoBehaviour {
 
     //if we should show ads or not
     public static bool showAds = true;
+
+    // Nullable type
+    public static DateTime? nextRewardTime = null;
 
     public static void ShowAd() {
         #if UNITY_ADS
@@ -34,6 +38,9 @@ public class UnityAdController : MonoBehaviour {
 
     public static void ShowRewardAd() {
         #if UNITY_ADS
+        
+        nextRewardTime = DateTime.Now.AddSeconds(15);
+
         if (Advertisement.IsReady()) {
             // Pause game while ad is shown
             PauseScreenBehaviour.paused = true;
