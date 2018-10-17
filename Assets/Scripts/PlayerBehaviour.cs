@@ -10,9 +10,13 @@ public class PlayerBehaviour : MonoBehaviour {
     public float gravityForce;
 
     private ConstantForce cf;
-    
-	// Use this for initialization
-	void Start () {
+
+    //score
+    private float score = 0;
+    public Text scoreText;
+
+    // Use this for initialization
+    void Start () {
         cf = GetComponent<ConstantForce>();
         cf.force = new Vector3(0, gravityForce * -1f, 0);
 
@@ -27,7 +31,7 @@ public class PlayerBehaviour : MonoBehaviour {
             return;
         }
 
-        score += Time.deltaTime;
+        Score += Time.deltaTime;
 
         DetectInput();
 	}
@@ -62,8 +66,7 @@ public class PlayerBehaviour : MonoBehaviour {
         cf.force = new Vector3(0, gravityForce, 0);
     }
 
-    private float score = 0;
-    public Text scoreText;
+    
 
     public float Score {
         get { return score; }
