@@ -76,6 +76,11 @@ public class PlayerBehaviour : MonoBehaviour {
             // Update the text to display the whole number portion
             // of the score
             scoreText.text = string.Format("{0:0}", score);
+
+            //Set High Score
+            if(score > PlayerPrefs.GetInt("HighScore", 0)) {
+                PlayerPrefs.SetInt("HighScore", (int)score);
+            }
         }
     }
 }

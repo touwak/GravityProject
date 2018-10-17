@@ -42,4 +42,31 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
         }
         #endif
     }
+
+    #region Share Score via Twitter
+    
+    // Web address in order to create a tweet
+    private const string tweetTextAddress =
+        "http://twitter.com/intent/tweet?text=";
+    
+    // Where we want players to visit
+    private string appStoreLink = "http://amadeocg.com/";
+    
+    // Reference to the player for the score
+    public PlayerBehaviour player;
+    
+    /// <summary>
+    /// Will open Twitter with a prebuilt tweet. When called on iOS or
+    /// Android will open up Twitter app if installed
+    /// </summary>
+    public void TweetScore() {
+        // Get contents of the tweet (in URL friendly format)
+        string tweet = "I got " + string.Format("{0:0}", player.Score)
+        + " points in #GravityProject! Can you do better?";
+        
+        // Open the URL to create the tweet
+        Application.OpenURL(tweetTextAddress + WWW.EscapeURL(tweet +
+        "\n" + appStoreLink));
+    }
+    #endregion
 }

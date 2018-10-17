@@ -114,6 +114,8 @@ public class GameController : MonoBehaviour {
             tiles.Add(newTile);
         }
 
+        //score
+        PlayerPrefs.GetInt("HighScore", 0);
       
         SetTheStage();  
     }
