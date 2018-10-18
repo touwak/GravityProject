@@ -35,6 +35,8 @@ public class TileBehaviour : MonoBehaviour {
     [Tooltip("How long to wait before restarting the game")]
     public float waitTime = 0.5f;
 
+    GameController gc;
+
     private void Awake() {
         rb = GetComponent<Rigidbody>();
     }
@@ -157,6 +159,8 @@ public class TileBehaviour : MonoBehaviour {
 
         if(collision.gameObject.GetComponent<PlayerBehaviour>()) {
 
+            gc = FindObjectOfType<GameController>();
+
             //keep moving the tile in the same direction
             //SetVelocity(movementSpeed);
             StopOrRestartAllTiles(true);
@@ -179,6 +183,10 @@ public class TileBehaviour : MonoBehaviour {
         //Bring up restart menu
         var go = GetGameOverMenu();
         go.SetActive(true);
+
+        PlayerBehaviour playerBehaviour = player.GetComponent<PlayerBehaviour>();
+        playerBehaviour.scoreText.gameObject.SetActive(false);
+       
 
         // Get our continue button
         var buttons = go.transform.GetComponentsInChildren<Button>();
@@ -226,9 +234,7 @@ public class TileBehaviour : MonoBehaviour {
         return GameObject.Find("Canvas").transform.Find("Game Over").gameObject;
     }
 
-    void StopOrRestartAllTiles(bool stop) {
-
-        GameController gc = FindObjectOfType<GameController>();
+    void StopOrRestartAllTiles(bool stop) {     
 
         if (stop) {
             gc.SetTilesSpeed(0);

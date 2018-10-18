@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
@@ -41,8 +41,7 @@ public class GameController : MonoBehaviour {
 
     [Tooltip("The offset of the curve")]
     [Range(0.01f, 4)]
-    public float offset;
-    
+    public float offset;    
 
     /// <summary>
     /// Where the next tile should be spawned at.
@@ -72,6 +71,8 @@ public class GameController : MonoBehaviour {
     //color
     Color[] colors;
     Color secondColor;
+
+   
 
     void Start () {
 
@@ -113,9 +114,6 @@ public class GameController : MonoBehaviour {
 
             tiles.Add(newTile);
         }
-
-        //score
-        PlayerPrefs.GetInt("HighScore", 0);
       
         SetTheStage();  
     }

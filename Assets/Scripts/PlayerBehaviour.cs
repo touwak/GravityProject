@@ -14,6 +14,8 @@ public class PlayerBehaviour : MonoBehaviour {
     //score
     private float score = 0;
     public Text scoreText;
+    public Text scoreTextGO;
+    public Text highScoreTextGO;
 
     // Use this for initialization
     void Start () {
@@ -75,11 +77,12 @@ public class PlayerBehaviour : MonoBehaviour {
             
             // Update the text to display the whole number portion
             // of the score
-            scoreText.text = string.Format("{0:0}", score);
+            scoreTextGO.text = scoreText.text = string.Format("{0:0}", score);
 
             //Set High Score
             if(score > PlayerPrefs.GetInt("HighScore", 0)) {
                 PlayerPrefs.SetInt("HighScore", (int)score);
+                highScoreTextGO.text = string.Format("{0:0}", score);
             }
         }
     }
