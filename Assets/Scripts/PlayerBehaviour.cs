@@ -23,6 +23,8 @@ public class PlayerBehaviour : MonoBehaviour {
         cf.force = new Vector3(0, gravityForce * -1f, 0);
 
         score = 0;
+
+        highScoreTextGO.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
     }
 	
 	// Update is called once per frame
