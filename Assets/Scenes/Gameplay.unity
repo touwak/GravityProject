@@ -5206,7 +5206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &241703842
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6894,32 +6894,32 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
-        key2: {r: 0, g: 0, b: 0, a: 0}
-        key3: {r: 0, g: 0, b: 0, a: 0}
+        key1: {r: 0.9056604, g: 0.6156351, b: 0, a: 1}
+        key2: {r: 0.9529412, g: 0.5019608, b: 0.7062141, a: 0}
+        key3: {r: 1, g: 1, b: 1, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 65535
-        ctime2: 0
-        ctime3: 0
+        ctime1: 14649
+        ctime2: 40285
+        ctime3: 65535
         ctime4: 0
         ctime5: 0
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 65535
-        atime2: 0
+        atime1: 49344
+        atime2: 65535
         atime3: 0
         atime4: 0
         atime5: 0
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 2
-        m_NumAlphaKeys: 2
+        m_NumColorKeys: 4
+        m_NumAlphaKeys: 3
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9025,32 +9025,32 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
-        key2: {r: 0, g: 0, b: 0, a: 0}
-        key3: {r: 0, g: 0, b: 0, a: 0}
+        key1: {r: 0.9056604, g: 0.6156351, b: 0, a: 1}
+        key2: {r: 0.9529412, g: 0.5019608, b: 0.7062141, a: 0}
+        key3: {r: 1, g: 1, b: 1, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 65535
-        ctime2: 0
-        ctime3: 0
+        ctime1: 14649
+        ctime2: 40285
+        ctime3: 65535
         ctime4: 0
         ctime5: 0
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 65535
-        atime2: 0
+        atime1: 49344
+        atime2: 65535
         atime3: 0
         atime4: 0
         atime5: 0
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 2
-        m_NumAlphaKeys: 2
+        m_NumColorKeys: 4
+        m_NumAlphaKeys: 3
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -10250,7 +10250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 78.25, y: -92.58}
+  m_AnchoredPosition: {x: 78.25, y: -94.58}
   m_SizeDelta: {x: 146.5, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &445495493
@@ -11215,7 +11215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 78.25, y: -62.58}
+  m_AnchoredPosition: {x: 78.25, y: -63.58}
   m_SizeDelta: {x: 146.5, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1273046695
@@ -11383,7 +11383,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -303.75, y: 0}
+  m_SizeDelta: {x: -390, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1291765911
 MonoBehaviour:
@@ -11598,7 +11598,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4513061333608792, guid: 39fd40db2227c7a43a4f23aee7e14f15, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 15.1
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4513061333608792, guid: 39fd40db2227c7a43a4f23aee7e14f15, type: 2}
       propertyPath: m_LocalPosition.y
@@ -11650,8 +11650,14 @@ Prefab:
       objectReference: {fileID: 1555829771}
     - target: {fileID: 1010554664383314, guid: 39fd40db2227c7a43a4f23aee7e14f15, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114053836568492868, guid: 39fd40db2227c7a43a4f23aee7e14f15,
+        type: 2}
+      propertyPath: explosionParticle
+      value: 
+      objectReference: {fileID: 198120955779054120, guid: 51f3317a5924eb64aa02cc19e503ab5c,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39fd40db2227c7a43a4f23aee7e14f15, type: 2}
   m_IsPrefabAsset: 0
@@ -12074,7 +12080,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 78.25, y: -152.58}
+  m_AnchoredPosition: {x: 78.25, y: -156.58}
   m_SizeDelta: {x: 146.5, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1628136485
@@ -12554,7 +12560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1796535150
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12700,7 +12706,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 18.5, y: -103.42}
+  m_SizeDelta: {x: -20.5, y: -177.42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1826124805
 MonoBehaviour:
@@ -12732,7 +12738,7 @@ MonoBehaviour:
     m_Top: 5
     m_Bottom: 5
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: 1
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -12806,7 +12812,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 78.25, y: -122.58}
+  m_AnchoredPosition: {x: 78.25, y: -125.58}
   m_SizeDelta: {x: 146.5, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1925731406
@@ -13037,7 +13043,7 @@ MonoBehaviour:
   initPoolNum: 60
   initSpawnNum: 60
   spaceBetweenCols: 1.1
-  spaceBetweenTilesY: 23
+  spaceBetweenTilesY: 21.7
   tileMovementSpeed: 10
   startYPoint: 0
   endYPoint: 10

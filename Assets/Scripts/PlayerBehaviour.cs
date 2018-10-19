@@ -20,6 +20,7 @@ public class PlayerBehaviour : MonoBehaviour {
     //particles
     ParticleSystem particle;
     Renderer particleRender;
+    public ParticleSystem explosionParticle;
 
     // Use this for initialization
     void Start () {
@@ -31,6 +32,7 @@ public class PlayerBehaviour : MonoBehaviour {
         //particles
         particle = GetComponentInChildren<ParticleSystem>();
         particleRender = particle.GetComponent<Renderer>();
+        explosionParticle.GetComponent<Renderer>().material = GetComponent<Renderer>().material;
 
         //score
         score = 0;
@@ -114,6 +116,14 @@ public class PlayerBehaviour : MonoBehaviour {
                 PlayerPrefs.SetInt("HighScore", (int)score);
                 highScoreTextGO.text = string.Format("{0:0}", score);
             }
+        }
+    }
+
+    private void OnDisable() {
+        if (explosionParticle) {
+            var particles = 
+                Instantiate(explosionParticle, transform.position, Quaternion.identity);
+            Destroy(explosionParticle, 1.0f);
         }
     }
 }
