@@ -27,8 +27,8 @@ public class GameController : MonoBehaviour {
     public float spaceBetweenTilesY = 20f;
 
     [Tooltip("The speed of the tiles")]
-    [Range(1f, 10f)]
-    public float tileMovementSpeed = 0.16f;
+    [Range(1f, 20f)]
+    public float tileMovementSpeed = 10f;
 
     [Header("Y Positions")]
     [Tooltip("The start point of the Y positions")]
@@ -268,13 +268,7 @@ public class GameController : MonoBehaviour {
     /// <summary>
     /// Set the new Y points, the tiles speed and the separation between
     /// </summary>
-    public void SetDifficult() {
-        for (int i = 0; i < tiles.Count; i++) {
-            //TileBehaviour tileBehaviour = tiles[i].GetComponent<TileBehaviour>();
-            //tileBehaviour.SetVelocity(tileMovementSpeed);
-            //tileBehaviour.SetSpaceBetweenTilesY(spaceBetweenTilesY);
-        }
-
+    void SetDifficult() {       
         SetYPoints(startYPoint, endYPoint, offset);
     }
 
@@ -314,9 +308,18 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Increment the difficult of the game
+    /// </summary>
     public void IncrementDifficult() {
-        offset += difficultIncrement;
-        SetDifficult();
+        if (offset < 1.3f) {
+            offset += difficultIncrement;
+            SetDifficult();
+        }
+        else {//TODO test this part
+            tileMovementSpeed += difficultIncrement;
+            SetTilesSpeed(tileMovementSpeed);
+        }
     }
 
     #endregion
