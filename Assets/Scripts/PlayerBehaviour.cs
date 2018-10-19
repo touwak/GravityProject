@@ -25,7 +25,8 @@ public class PlayerBehaviour : MonoBehaviour {
     void Start () {
         //constant force
         cf = GetComponent<ConstantForce>();
-        cf.force = new Vector3(0, gravityForce * -1f, 0);
+        gravityForce *= -1f;
+        cf.force = new Vector3(0, gravityForce, 0);
 
         //particles
         particle = GetComponentInChildren<ParticleSystem>();
