@@ -13033,11 +13033,13 @@ MonoBehaviour:
   initPoolNum: 60
   initSpawnNum: 60
   spaceBetweenCols: 1.1
-  spaceBetweenTilesY: 21.7
+  spaceBetweenTilesY: 23
   tileMovementSpeed: 10
   startYPoint: 0
   endYPoint: 10
   offset: 0.4
+  difficultThreshold: 15
+  difficultIncrement: 0.1
 --- !u!1 &2067490746
 GameObject:
   m_ObjectHideFlags: 0

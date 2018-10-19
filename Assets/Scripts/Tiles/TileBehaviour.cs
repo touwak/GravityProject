@@ -221,6 +221,7 @@ public class TileBehaviour : MonoBehaviour {
 
         //TODO move the player
         player.transform.position = transform.position;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.SetActive(true);
 
         StopOrRestartAllTiles(false);

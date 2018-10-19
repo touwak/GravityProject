@@ -17,6 +17,8 @@ public class PlayerBehaviour : MonoBehaviour {
     public Text scoreTextGO;
     public Text highScoreTextGO;
 
+    public GameController gameController;
+
     // Use this for initialization
     void Start () {
         cf = GetComponent<ConstantForce>();
@@ -46,20 +48,19 @@ public class PlayerBehaviour : MonoBehaviour {
     void DetectInput() {
         //Check if we are running either in the Unity editor or in a
         //standalone build.
-#if UNITY_STANDALONE || UNITY_WEBPLAYER      
+//#if UNITY_STANDALONE || UNITY_WEBPLAYER      
         // If the mouse is held down (or the screen is tapped
         // on Mobile)
-        if (Input.GetMouseButton(0)) {
+        if (Input.GetMouseButtonDown(0)) {
             ChangeGravity();
         }
         //Check if we are running on a mobile device
-#elif UNITY_IOS || UNITY_ANDROID
+//#elif UNITY_IOS || UNITY_ANDROID
         // Check if Input has registered more than zero touches
-        if (Input.touchCount > 0) {
-            
+        if (Input.touchCount > 0 && Input.touchCount < 2) {            
             ChangeGravity();
         }
-#endif
+//#endif
     }
 
     /// <summary>
@@ -70,7 +71,8 @@ public class PlayerBehaviour : MonoBehaviour {
         cf.force = new Vector3(0, gravityForce, 0);
     }
 
-    
+
+    private int lastIncrement = 0;
 
     public float Score {
         get { return score; }
@@ -80,6 +82,15 @@ public class PlayerBehaviour : MonoBehaviour {
             // Update the text to display the whole number portion
             // of the score
             scoreTextGO.text = scoreText.text = string.Format("{0:0}", score);
+
+            //increment the difficult
+            if(lastIncrement < (int)score && 
+                score > 1f && 
+                (int)score % gameController.difficultThreshold == 0) {
+
+                lastIncrement = (int)score;
+                gameController.IncrementDifficult();
+            }
 
             //Set High Score
             if(score > PlayerPrefs.GetInt("HighScore", 0)) {

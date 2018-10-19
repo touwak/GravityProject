@@ -66,12 +66,15 @@ public class GameController : MonoBehaviour {
     private List<float> yPoints2;
     private int yPointIterator;
     bool goForward;
-    bool changeDifficult;
 
     //color
     Color[] colors;
     Color secondColor;
 
+    //difficult
+    public int difficultThreshold = 15;
+    public float difficultIncrement = 0.1f;
+    bool changeDifficult;
    
 
     void Start () {
@@ -301,10 +304,19 @@ public class GameController : MonoBehaviour {
         SetTileSecondColor();
     }
 
+    /// <summary>
+    /// Change the speed of all the tiles
+    /// </summary>
+    /// <param name="speed">Speed of the tiles</param>
     public void SetTilesSpeed(float speed) {
         foreach (GameObject tile in tiles) {
             tile.GetComponent<TileBehaviour>().SetVelocity(speed);
         }
+    }
+
+    public void IncrementDifficult() {
+        offset += difficultIncrement;
+        SetDifficult();
     }
 
     #endregion
