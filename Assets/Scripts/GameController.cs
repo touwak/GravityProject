@@ -39,9 +39,19 @@ public class GameController : MonoBehaviour {
     [Range(0, 20)]
     public float endYPoint;
 
+    //difficult
+    [Header("Difficult")]
     [Tooltip("The offset of the curve")]
     [Range(0.01f, 4)]
     public float offset;    
+
+    [Range(5, 30)]
+    public int difficultThreshold = 15;
+
+    [Range(0.01f, 0.4f)]
+    public float difficultIncrement = 0.1f;
+
+    private bool changeDifficult;
 
     /// <summary>
     /// Where the next tile should be spawned at.
@@ -71,10 +81,6 @@ public class GameController : MonoBehaviour {
     Color[] colors;
     Color secondColor;
 
-    //difficult
-    public int difficultThreshold = 15;
-    public float difficultIncrement = 0.1f;
-    bool changeDifficult;
    
 
     void Start () {

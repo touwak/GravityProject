@@ -325,7 +325,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -314.15, y: -132.37}
+  m_SizeDelta: {x: -315.65, y: -133.12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &300348017
 MonoBehaviour:
@@ -538,7 +538,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Gravity Project
+  m_Text: Gravity Cube
 --- !u!222 &580333801
 CanvasRenderer:
   m_ObjectHideFlags: 0
