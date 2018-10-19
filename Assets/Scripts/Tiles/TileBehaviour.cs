@@ -220,7 +220,9 @@ public class TileBehaviour : MonoBehaviour {
         go.SetActive(false);
 
         //TODO move the player
-        player.transform.position = transform.position;
+        Vector3 playerNewPos = player.transform.position;
+        playerNewPos.y = transform.position.y;
+        player.transform.position = playerNewPos;
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.SetActive(true);
 

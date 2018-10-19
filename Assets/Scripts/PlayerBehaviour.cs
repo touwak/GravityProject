@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour {
@@ -19,13 +17,22 @@ public class PlayerBehaviour : MonoBehaviour {
 
     public GameController gameController;
 
+    //particles
+    ParticleSystem particle;
+    Renderer particleRender;
+
     // Use this for initialization
     void Start () {
+        //constant force
         cf = GetComponent<ConstantForce>();
         cf.force = new Vector3(0, gravityForce * -1f, 0);
 
-        score = 0;
+        //particles
+        particle = GetComponentInChildren<ParticleSystem>();
+        particleRender = particle.GetComponent<Renderer>();
 
+        //score
+        score = 0;
         highScoreTextGO.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
     }
 	
@@ -67,8 +74,17 @@ public class PlayerBehaviour : MonoBehaviour {
     /// Change the player's gravity
     /// </summary>
     void ChangeGravity() {
+
         gravityForce *= -1;
         cf.force = new Vector3(0, gravityForce, 0);
+
+        if (gravityForce > 0) {
+            particleRender.material.color = Color.red;
+        }
+        else {
+            particleRender.material.color = Color.blue;
+        }
+
     }
 
 
