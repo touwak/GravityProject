@@ -175,7 +175,7 @@ MonoBehaviour:
   explosionParticle: {fileID: 198120955779054120, guid: 51f3317a5924eb64aa02cc19e503ab5c,
     type: 2}
   explosionSound: {fileID: 8300000, guid: 8917fd5863c4cc443afc476d1da67af2, type: 3}
-  gravitySound: {fileID: 8300000, guid: 8e0cc203fa871f74f869d0440f688b19, type: 3}
+  gravitySound: {fileID: 8300000, guid: 069cc977ff30a494fba856dc916287e3, type: 3}
 --- !u!198 &198460080458209854
 ParticleSystem:
   m_ObjectHideFlags: 1
