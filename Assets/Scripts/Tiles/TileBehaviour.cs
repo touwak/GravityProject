@@ -31,7 +31,10 @@ public class TileBehaviour : MonoBehaviour {
     //Color
     Color secondColor;
 
+    //player
     GameObject player;
+    PlayerBehaviour playerBehaviour;
+
     [Tooltip("How long to wait before restarting the game")]
     public float waitTime = 0.5f;
 
@@ -168,8 +171,8 @@ public class TileBehaviour : MonoBehaviour {
             // Destroy (Hide) the player
             collision.gameObject.SetActive(false);
             player = collision.gameObject;
+            playerBehaviour = player.GetComponent<PlayerBehaviour>();
 
-            
             // Call the function ResetGame after waitTime
             // has passed
             Invoke("ResetGame", waitTime);

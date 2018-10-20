@@ -22,6 +22,10 @@ public class PlayerBehaviour : MonoBehaviour {
     Renderer particleRender;
     public ParticleSystem explosionParticle;
 
+    //Sounds
+    public AudioClip explosionSound;
+    private AudioSource source;
+
     // Use this for initialization
     void Start () {
         //constant force
@@ -38,6 +42,9 @@ public class PlayerBehaviour : MonoBehaviour {
         //score
         score = 0;
         highScoreTextGO.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
+
+        //sound
+        source = Camera.main.GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -130,6 +137,8 @@ public class PlayerBehaviour : MonoBehaviour {
             var particles = 
                 Instantiate(explosionParticle, transform.position, Quaternion.identity);
             Destroy(particles, 1f);//TODO fix this
+
+            source.PlayOneShot(explosionSound, 1f);
         }
     }
 }

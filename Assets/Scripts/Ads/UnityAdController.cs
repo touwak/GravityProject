@@ -65,10 +65,10 @@ public class UnityAdController : MonoBehaviour {
                 nextRewardAvalible = false;
                 break;
             case ShowResult.Skipped:
-                Debug.Log("Ad skipped, do nothing");
+                //Debug.Log("Ad skipped, do nothing");
                 break;
             case ShowResult.Failed:
-                Debug.LogError("Ad failed to show, do nothing");
+                //Debug.LogError("Ad failed to show, do nothing");
                 break;
         }
         #endif
