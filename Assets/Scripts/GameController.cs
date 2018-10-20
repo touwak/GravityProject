@@ -81,9 +81,21 @@ public class GameController : MonoBehaviour {
     Color[] colors;
     Color secondColor;
 
-   
-
+    //sound
+    public AudioClip music;
+    private AudioSource source;
+    
     void Start () {
+
+        //sound
+        int playMusic = PlayerPrefs.GetInt("Music", 1);
+        source = Camera.main.GetComponent<AudioSource>();
+        
+        if(playMusic == 1) {
+            source.loop = true;
+            source.clip = music;
+            source.Play();
+        }
 
         //colors
         colors = new Color[] {
@@ -375,6 +387,21 @@ public class GameController : MonoBehaviour {
 
         for(int i = 0; i < tiles.Count; i++) {
             tiles[i].GetComponent<TileBehaviour>().SetSecondColor(secondColor);
+        }
+    }
+
+    #endregion
+
+    #region SOUND
+    
+    public void PlayMusic() {
+        if(PlayerPrefs.GetInt("Music") == 1) {
+            PlayerPrefs.SetInt("Music", 0);
+            source.Stop();
+        }
+        else {
+            PlayerPrefs.SetInt("Music", 1);
+            source.Play();
         }
     }
 

@@ -169,10 +169,12 @@ public class TileBehaviour : MonoBehaviour {
             StopOrRestartAllTiles(true);
 
             // Destroy (Hide) the player
-            collision.gameObject.SetActive(false);
             player = collision.gameObject;
             playerBehaviour = player.GetComponent<PlayerBehaviour>();
+            playerBehaviour.InstantiateExplosionParticles();
 
+            collision.gameObject.SetActive(false);
+            
             // Call the function ResetGame after waitTime
             // has passed
             Invoke("ResetGame", waitTime);

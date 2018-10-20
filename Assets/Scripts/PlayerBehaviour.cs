@@ -23,7 +23,9 @@ public class PlayerBehaviour : MonoBehaviour {
     public ParticleSystem explosionParticle;
 
     //Sounds
+    [Header("Sounds")]
     public AudioClip explosionSound;
+    public AudioClip gravitySound;
     private AudioSource source;
 
     // Use this for initialization
@@ -37,7 +39,7 @@ public class PlayerBehaviour : MonoBehaviour {
         particle = GetComponentInChildren<ParticleSystem>();
         particleRender = particle.GetComponent<Renderer>();
         explosionParticle.GetComponent<Renderer>().material = GetComponent<Renderer>().material;
-        ChangeParticleColor(Color.red);
+        ChangeParticleColor(Color.blue);
 
         //score
         score = 0;
@@ -96,6 +98,7 @@ public class PlayerBehaviour : MonoBehaviour {
             ChangeParticleColor(Color.blue);
         }
 
+        source.PlayOneShot(gravitySound, 1f);
     }
 
     void ChangeParticleColor(Color color) {
@@ -131,14 +134,20 @@ public class PlayerBehaviour : MonoBehaviour {
         }
     }
 
-    private void OnDisable() {
-        //instantiate a particle when the player die
+    /// <summary>
+    /// instantiate explosion particles
+    /// </summary>
+    public void InstantiateExplosionParticles() {
         if (explosionParticle) {
-            var particles = 
+            var particles =
                 Instantiate(explosionParticle, transform.position, Quaternion.identity);
-            Destroy(particles, 1f);//TODO fix this
-
-            source.PlayOneShot(explosionSound, 1f);
+            Destroy(particles, 1f);
         }
+    }
+
+    private void OnDisable() {    
+        if (source) {
+            source.PlayOneShot(explosionSound, 1f);
+        }  
     }
 }
