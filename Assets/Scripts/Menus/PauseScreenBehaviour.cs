@@ -12,6 +12,7 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
     /// game
     /// </summary>
     public void Restart() {
+        UnityAdController.nextRewardAvalible = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     

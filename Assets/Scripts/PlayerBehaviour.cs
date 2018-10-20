@@ -33,6 +33,7 @@ public class PlayerBehaviour : MonoBehaviour {
         particle = GetComponentInChildren<ParticleSystem>();
         particleRender = particle.GetComponent<Renderer>();
         explosionParticle.GetComponent<Renderer>().material = GetComponent<Renderer>().material;
+        ChangeParticleColor(Color.red);
 
         //score
         score = 0;
@@ -82,12 +83,16 @@ public class PlayerBehaviour : MonoBehaviour {
         cf.force = new Vector3(0, gravityForce, 0);
 
         if (gravityForce > 0) {
-            particleRender.material.color = Color.red;
+            ChangeParticleColor(Color.red);
         }
         else {
-            particleRender.material.color = Color.blue;
+            ChangeParticleColor(Color.blue);
         }
 
+    }
+
+    void ChangeParticleColor(Color color) {
+        particleRender.material.color = color;
     }
 
 
@@ -120,10 +125,11 @@ public class PlayerBehaviour : MonoBehaviour {
     }
 
     private void OnDisable() {
+        //instantiate a particle when the player die
         if (explosionParticle) {
             var particles = 
                 Instantiate(explosionParticle, transform.position, Quaternion.identity);
-            Destroy(explosionParticle, 1.0f);
+            Destroy(particles, 1f);//TODO fix this
         }
     }
 }

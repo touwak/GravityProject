@@ -13043,7 +13043,7 @@ MonoBehaviour:
   initPoolNum: 60
   initSpawnNum: 60
   spaceBetweenCols: 1.1
-  spaceBetweenTilesY: 21.7
+  spaceBetweenTilesY: 21
   tileMovementSpeed: 10
   startYPoint: 0
   endYPoint: 10

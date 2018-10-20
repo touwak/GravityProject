@@ -9,8 +9,7 @@ public class UnityAdController : MonoBehaviour {
     //if we should show ads or not
     public static bool showAds = true;
 
-    // Nullable type
-    public static DateTime? nextRewardTime = null;
+    public static bool nextRewardAvalible = true;
 
     public static void ShowAd() {
         #if UNITY_ADS
@@ -39,7 +38,7 @@ public class UnityAdController : MonoBehaviour {
     public static void ShowRewardAd() {
         #if UNITY_ADS
         
-        nextRewardTime = DateTime.Now.AddSeconds(15);
+        //nextRewardTime = DateTime.Now.AddSeconds(15);
 
         if (Advertisement.IsReady()) {
             // Pause game while ad is shown
@@ -63,6 +62,7 @@ public class UnityAdController : MonoBehaviour {
             case ShowResult.Finished:
                 // Successfully shown, can continue game
                 tile.Continue();
+                nextRewardAvalible = false;
                 break;
             case ShowResult.Skipped:
                 Debug.Log("Ad skipped, do nothing");
