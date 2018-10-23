@@ -7,6 +7,8 @@ public class PlayerBehaviour : MonoBehaviour {
     [Tooltip("The force of the gravity")]
     public float gravityForce;
 
+    public LayerMask touchInputMask;
+
     private ConstantForce cf;
     private Renderer playerRenderer;
 
@@ -80,8 +82,17 @@ public class PlayerBehaviour : MonoBehaviour {
         //Check if we are running on a mobile device
 #elif UNITY_IOS || UNITY_ANDROID
         // Check if Input has registered more than zero touches
-        if (Input.touchCount > 0 && Input.touchCount < 2) {            
-            ChangeGravity();
+        if (Input.touchCount > 0) {
+            foreach (Touch touch in Input.touches) {
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit)) {
+                    if (touch.phase == TouchPhase.Began) {
+                        ChangeGravity();
+                    }
+                }
+            }
         }
 #endif
     }
