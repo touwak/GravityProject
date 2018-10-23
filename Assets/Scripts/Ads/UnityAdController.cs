@@ -10,6 +10,8 @@ public class UnityAdController : MonoBehaviour {
     public static bool showAds = true;
 
     public static bool nextRewardAvalible = true;
+    public static int restartAdsThreshold = 7;
+    public static int restartWithoutAds = 0;
 
     public static void ShowAd() {
         #if UNITY_ADS

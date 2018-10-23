@@ -7,10 +7,10 @@ public class ClickSound : MonoBehaviour {
 
     public AudioClip sound;
 
-    private AudioSource source;
-    private Button button { get { return GetComponent<Button>(); } }
+    protected AudioSource source;
+    protected Button button { get { return GetComponent<Button>(); } }
 
-	void Start () {
+	public void Start () {
         source = Camera.main.GetComponent<AudioSource>();
 
         button.onClick.AddListener(() => PlaySound());

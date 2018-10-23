@@ -97,6 +97,15 @@ public class GameController : MonoBehaviour {
             source.Play();
         }
 
+        int playSound = PlayerPrefs.GetInt("Sound", 1);
+        if (playSound == 1) {
+            source.mute = false;
+        }
+        else {
+            source.mute = true;
+        }
+        
+
         //colors
         colors = new Color[] {
             Color.blue,
@@ -402,6 +411,17 @@ public class GameController : MonoBehaviour {
         else {
             PlayerPrefs.SetInt("Music", 1);
             source.Play();
+        }
+    }
+
+    public void MuteSound() {
+        if (PlayerPrefs.GetInt("Sound", 1) == 1) {
+            PlayerPrefs.SetInt("Sound", 0);
+            source.mute = true;
+        }
+        else {
+            PlayerPrefs.SetInt("Sound", 1);
+            source.mute = false;
         }
     }
 

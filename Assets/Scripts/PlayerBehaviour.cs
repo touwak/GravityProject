@@ -8,6 +8,7 @@ public class PlayerBehaviour : MonoBehaviour {
     public float gravityForce;
 
     private ConstantForce cf;
+    private Renderer playerRenderer;
 
     //score
     private float score = 0;
@@ -34,6 +35,8 @@ public class PlayerBehaviour : MonoBehaviour {
         cf = GetComponent<ConstantForce>();
         gravityForce *= -1f;
         cf.force = new Vector3(0, gravityForce, 0);
+
+        playerRenderer = GetComponent<Renderer>();
 
         //particles
         particle = GetComponentInChildren<ParticleSystem>();
@@ -103,6 +106,7 @@ public class PlayerBehaviour : MonoBehaviour {
 
     void ChangeParticleColor(Color color) {
         particleRender.material.color = color;
+        playerRenderer.material.color = color;
     }
 
 

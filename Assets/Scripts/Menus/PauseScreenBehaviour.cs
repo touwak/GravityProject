@@ -12,8 +12,22 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
     /// game
     /// </summary>
     public void Restart() {
-        UnityAdController.nextRewardAvalible = true;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        if(UnityAdController.restartWithoutAds >= UnityAdController.restartAdsThreshold &&
+            UnityAdController.showAds) {
+
+            UnityAdController.restartWithoutAds = 0;
+            UnityAdController.ShowAd();
+
+            if (pauseMenu.activeInHierarchy) {
+                pauseMenu.SetActive(false);
+            }
+        }
+        else {
+            UnityAdController.restartWithoutAds++;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            UnityAdController.nextRewardAvalible = true;
+        }
     }
     
     /// <summary>
@@ -63,7 +77,7 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
     public void TweetScore() {
         // Get contents of the tweet (in URL friendly format)
         string tweet = "I got " + string.Format("{0:0}", player.Score)
-        + " points in #GravityProject! Can you do better?";
+        + " points in #GravityCube! Can you do better?";
         
         // Open the URL to create the tweet
         Application.OpenURL(tweetTextAddress + WWW.EscapeURL(tweet +
