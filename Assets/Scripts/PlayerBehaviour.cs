@@ -71,19 +71,19 @@ public class PlayerBehaviour : MonoBehaviour {
     void DetectInput() {
         //Check if we are running either in the Unity editor or in a
         //standalone build.
-//#if UNITY_STANDALONE || UNITY_WEBPLAYER      
+#if UNITY_STANDALONE || UNITY_WEBPLAYER      
         // If the mouse is held down (or the screen is tapped
         // on Mobile)
         if (Input.GetMouseButtonDown(0)) {
             ChangeGravity();
         }
         //Check if we are running on a mobile device
-//#elif UNITY_IOS || UNITY_ANDROID
+#elif UNITY_IOS || UNITY_ANDROID
         // Check if Input has registered more than zero touches
         if (Input.touchCount > 0 && Input.touchCount < 2) {            
             ChangeGravity();
         }
-//#endif
+#endif
     }
 
     /// <summary>
