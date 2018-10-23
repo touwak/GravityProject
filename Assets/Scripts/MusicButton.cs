@@ -6,7 +6,7 @@ public class MusicButton : ClickSound {
     public string buttonName;
     private Text buttonText;
 
-    void Start() {
+    new void Start() {
         base.Start();
 
         if (button) {

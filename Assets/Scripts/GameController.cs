@@ -51,6 +51,9 @@ public class GameController : MonoBehaviour {
     [Range(0.01f, 0.4f)]
     public float difficultIncrement = 0.1f;
 
+    [Range(0.1f, 4.0f)]
+    public float separationIncrementY = 0.1f;
+
     [Range(0.01f, 0.4f)]
     public float constantForceIncrement = 0.1f;
 
@@ -301,7 +304,11 @@ public class GameController : MonoBehaviour {
     /// <summary>
     /// Set the new Y points, the tiles speed and the separation between
     /// </summary>
-    void SetDifficult() {       
+    void SetDifficult() {
+        foreach (GameObject tile in tiles) {
+            tile.GetComponent<TileBehaviour>().SetSpaceBetweenTilesY(spaceBetweenTilesY);
+        }
+
         SetYPoints(startYPoint, endYPoint, offset);
     }
 
@@ -345,8 +352,12 @@ public class GameController : MonoBehaviour {
     /// Increment the difficult of the game
     /// </summary>
     public void IncrementDifficult() {
+
+
         if (offset < 1.3f) {
             offset += difficultIncrement;
+            spaceBetweenTilesY += separationIncrementY;
+
             SetDifficult();
         }
         else {//TODO test this part
