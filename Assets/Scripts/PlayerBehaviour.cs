@@ -42,7 +42,7 @@ public class PlayerBehaviour : MonoBehaviour {
         particle = GetComponentInChildren<ParticleSystem>();
         particleRender = particle.GetComponent<Renderer>();
         explosionParticle.GetComponent<Renderer>().material = GetComponent<Renderer>().material;
-        ChangeParticleColor(Color.blue);
+        ChangePlayerColor(Color.blue);
 
         //score
         score = 0;
@@ -95,16 +95,16 @@ public class PlayerBehaviour : MonoBehaviour {
         cf.force = new Vector3(0, gravityForce, 0);
 
         if (gravityForce > 0) {
-            ChangeParticleColor(Color.red);
+            ChangePlayerColor(Color.red);
         }
         else {
-            ChangeParticleColor(Color.blue);
+            ChangePlayerColor(Color.blue);
         }
 
         source.PlayOneShot(gravitySound, 1f);
     }
 
-    void ChangeParticleColor(Color color) {
+    void ChangePlayerColor(Color color) {
         particleRender.material.color = color;
         playerRenderer.material.color = color;
     }
@@ -146,6 +146,15 @@ public class PlayerBehaviour : MonoBehaviour {
             var particles =
                 Instantiate(explosionParticle, transform.position, Quaternion.identity);
             Destroy(particles, 1f);
+        }
+    }
+
+    public void IncrementGravity(float increment) {
+        if(gravityForce >= 0) {
+            gravityForce += increment;
+        }
+        else {
+            gravityForce -= increment;
         }
     }
 

@@ -9145,7 +9145,9 @@ MonoBehaviour:
   offset: 0.4
   difficultThreshold: 10
   difficultIncrement: 0.1
+  constantForceIncrement: 0.1
   music: {fileID: 8300000, guid: c826d02107196a84fa11584ee3c9b628, type: 3}
+  player: {fileID: 1328133309}
 --- !u!1 &2067490746
 GameObject:
   m_ObjectHideFlags: 0

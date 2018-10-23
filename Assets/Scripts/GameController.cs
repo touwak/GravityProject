@@ -46,10 +46,13 @@ public class GameController : MonoBehaviour {
     public float offset;    
 
     [Range(5, 30)]
-    public int difficultThreshold = 15;
+    public int difficultThreshold = 10;
 
     [Range(0.01f, 0.4f)]
     public float difficultIncrement = 0.1f;
+
+    [Range(0.01f, 0.4f)]
+    public float constantForceIncrement = 0.1f;
 
     private bool changeDifficult;
 
@@ -84,6 +87,9 @@ public class GameController : MonoBehaviour {
     //sound
     public AudioClip music;
     private AudioSource source;
+
+    //player
+    public PlayerBehaviour player;
     
     void Start () {
 
@@ -346,6 +352,10 @@ public class GameController : MonoBehaviour {
         else {//TODO test this part
             tileMovementSpeed += difficultIncrement;
             SetTilesSpeed(tileMovementSpeed);
+        }
+
+        if (player) {
+            player.IncrementGravity(constantForceIncrement);
         }
     }
 
