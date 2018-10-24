@@ -11,10 +11,10 @@ public class GooglePlayGame : MonoBehaviour {
         PlayGamesPlatform.InitializeInstance(config);
         PlayGamesPlatform.Activate();
 
-        Signin();
+        SignIn();
 	}
 
-    void Signin() {
+    void SignIn() {
         Social.localUser.Authenticate(success => { });
     }
 
