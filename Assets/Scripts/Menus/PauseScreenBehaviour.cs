@@ -5,7 +5,10 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
     public static bool paused;
 
     [Tooltip("Reference to the pause menu object to turn on/off")]  
-    public GameObject pauseMenu;   
+    public GameObject pauseMenu;
+
+    // Reference to the player for the score
+    public PlayerBehaviour player;
 
     /// <summary>
     /// Reloads our current level, effectively "restarting" the
@@ -13,7 +16,12 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
     /// </summary>
     public void Restart() {
 
-        if(UnityAdController.restartWithoutAds >= UnityAdController.restartAdsThreshold &&
+        //increment the achievements
+        if (player) {
+            GooglePlayGame.CheckAdchievements((int)player.Score);
+        }
+
+        if (UnityAdController.restartWithoutAds >= UnityAdController.restartAdsThreshold &&
             UnityAdController.showAds) {
 
             UnityAdController.restartWithoutAds = 0;
@@ -27,7 +35,7 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
             UnityAdController.restartWithoutAds++;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             UnityAdController.nextRewardAvalible = true;
-        }
+        }        
     }
     
     /// <summary>
@@ -39,6 +47,15 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
         // If the game is paused, timeScale is 0, otherwise 1
         Time.timeScale = (paused) ? 0 : 1;
         pauseMenu.SetActive(paused);
+    }
+
+    public override void LoadLevel(string levelName) {
+        //increment the achievements
+        if (player) {
+            GooglePlayGame.CheckAdchievements((int)player.Score);
+        }
+
+        base.LoadLevel(levelName);
     }
 
     protected override void Start() {
@@ -66,9 +83,6 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
     
     // Where we want players to visit
     private string appStoreLink = "http://amadeocg.com/";
-    
-    // Reference to the player for the score
-    public PlayerBehaviour player;
     
     /// <summary>
     /// Will open Twitter with a prebuilt tweet. When called on iOS or

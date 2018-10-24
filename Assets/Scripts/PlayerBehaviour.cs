@@ -139,11 +139,19 @@ public class PlayerBehaviour : MonoBehaviour {
                 gameController.IncrementDifficult();
             }
 
-            //Set High Score
-            if(score > PlayerPrefs.GetInt("HighScore", 0)) {
-                PlayerPrefs.SetInt("HighScore", (int)score);
-                highScoreTextGO.text = string.Format("{0:0}", score);
-            }
+            CheckHighScore();
+        }
+    }
+
+    void CheckHighScore() {
+        //Set High Score
+        if (score > PlayerPrefs.GetInt("HighScore", 0)) {
+            PlayerPrefs.SetInt("HighScore", (int)score);
+            highScoreTextGO.text = string.Format("{0:0}", score);
+
+            //add the highest score to the leaderboard
+            GooglePlayGame.AddScoreToLeaderboard(
+                GPGSIds.leaderboard_leaderboard, PlayerPrefs.GetInt("HighScore"));
         }
     }
 
