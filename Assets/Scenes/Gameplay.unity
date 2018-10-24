@@ -7400,7 +7400,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1381813193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.7, y: 0, z: 2}
+  m_LocalPosition: {x: -27.01, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 12.939, z: 5.6976}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8244,7 +8244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 80, y: -33.93}
+  m_AnchoredPosition: {x: 80, y: -33.930054}
   m_SizeDelta: {x: 150, y: 57.86}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1714754889
@@ -9146,8 +9146,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tile: {fileID: 1762080767656830, guid: 08eefadc5a541f14e8b0245376b68e82, type: 2}
   startPoint: {x: 0, y: 0, z: 0}
-  initPoolNum: 60
-  initSpawnNum: 60
+  initPoolNum: 80
+  initSpawnNum: 80
   spaceBetweenCols: 1.1
   spaceBetweenTilesY: 20
   tileMovementSpeed: 10
@@ -9156,6 +9156,7 @@ MonoBehaviour:
   offset: 0.4
   difficultThreshold: 10
   difficultIncrement: 0.1
+  separationIncrementY: 0.5
   constantForceIncrement: 0.1
   music: {fileID: 8300000, guid: c826d02107196a84fa11584ee3c9b628, type: 3}
   player: {fileID: 1328133309}
