@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class GooglePlayGame : MonoBehaviour {
 
-	void Start () {
-        PlayGamesClientConfiguration config = 
-            new PlayGamesClientConfiguration.Builder().Build();
+	//void Start () {
+        //PlayGamesPlatform.DebugLogEnabled = true;
 
-        PlayGamesPlatform.InitializeInstance(config);
-        PlayGamesPlatform.Activate();
+        //PlayGamesClientConfiguration config =
+        //    new PlayGamesClientConfiguration.Builder().Build();
 
-        SignIn();
-	}
+        //PlayGamesPlatform.InitializeInstance(config);
+        //PlayGamesPlatform.Activate();
 
-    void SignIn() {
-        Social.localUser.Authenticate(success => { });
-    }
+        //SignIn();
+	//}
+
+    //void SignIn() {
+    //    Social.localUser.Authenticate(success => { });
+    //}
 
     #region ACHIEVEMENTS
     public static void UnlockAchievement(string id, double progess) {

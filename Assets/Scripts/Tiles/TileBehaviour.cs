@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TileBehaviour : MonoBehaviour {
 
-    public float effectSpeed = 1.0f;
+    public float effectSpeed = 0.00000001f;
 
     [HideInInspector]
     public bool separateEffectEnable = false;
@@ -40,6 +40,7 @@ public class TileBehaviour : MonoBehaviour {
 
     GameController gc;
 
+
     private void Awake() {
         rb = GetComponent<Rigidbody>();
     }
@@ -68,6 +69,9 @@ public class TileBehaviour : MonoBehaviour {
     }
 
     void Update () {
+
+
+        //ActiveSeparateEffect();
 
         if (separateEffectEnable) {
             SeparateEffect();
@@ -111,6 +115,12 @@ public class TileBehaviour : MonoBehaviour {
             topJourneyLength = Vector3.Distance(startTilePos, endTilePos);
 
             startTime = Time.time;
+            separateEffectEnable = true; 
+        }
+    }
+
+    void ActiveSeparateEffect() {
+        if(topTileRenderer.isVisible || bottomTileRenderer.isVisible) {
             separateEffectEnable = true;
         }
     }
