@@ -21,11 +21,13 @@ public class UnityAdController : MonoBehaviour {
 
         if (Advertisement.IsReady()) {
             Advertisement.Show(options);
+
+            // Pause game while ad is shown
+            PauseScreenBehaviour.paused = true;
+            Time.timeScale = 0f;
         }
         
-        // Pause game while ad is shown
-        PauseScreenBehaviour.paused = true;
-        Time.timeScale = 0f;
+        
         #endif
     }
 

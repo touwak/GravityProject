@@ -82,7 +82,7 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
         "http://twitter.com/intent/tweet?text=";
     
     // Where we want players to visit
-    private string appStoreLink = "http://amadeocg.com/";
+    private string appStoreLink = "https://play.google.com/store/apps/details?id=com.touwapp.gravitycube";
     
     /// <summary>
     /// Will open Twitter with a prebuilt tweet. When called on iOS or
