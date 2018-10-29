@@ -44,7 +44,7 @@ public class UnityAdController : MonoBehaviour {
         
         //nextRewardTime = DateTime.Now.AddSeconds(15);
 
-        if (Advertisement.IsReady()) {
+        if (Advertisement.IsReady("rewardedVideo")) {
             // Pause game while ad is shown
             PauseScreenBehaviour.paused = true;
             Time.timeScale = 0f;
@@ -53,7 +53,8 @@ public class UnityAdController : MonoBehaviour {
                 resultCallback = HandleShowResult
             };
 
-            Advertisement.Show(options);
+            
+            Advertisement.Show("rewardedVideo", options);
         }
         #endif
     }
