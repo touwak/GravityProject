@@ -168,9 +168,31 @@ public class TileBehaviour : MonoBehaviour {
 
     #region PLAYER DIE AND GAME OVER
 
-    private void OnCollisionEnter(Collision collision) {
+    //private void OnCollisionEnter(Collision collision) {
 
-        if(collision.gameObject.GetComponent<PlayerBehaviour>()) {
+    //    if(collision.gameObject.GetComponent<PlayerBehaviour>()) {
+
+    //        gc = FindObjectOfType<GameController>();
+
+    //        //keep moving the tile in the same direction
+    //        //SetVelocity(movementSpeed);
+    //        StopOrRestartAllTiles(true);
+
+    //        // Destroy (Hide) the player
+    //        player = collision.gameObject;
+    //        playerBehaviour = player.GetComponent<PlayerBehaviour>();
+    //        playerBehaviour.InstantiateExplosionParticles();
+
+    //        collision.gameObject.SetActive(false);
+
+    //        // Call the function ResetGame after waitTime
+    //        // has passed
+    //        Invoke("ResetGame", waitTime);
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.GetComponent<PlayerBehaviour>()) {
 
             gc = FindObjectOfType<GameController>();
 
@@ -179,12 +201,12 @@ public class TileBehaviour : MonoBehaviour {
             StopOrRestartAllTiles(true);
 
             // Destroy (Hide) the player
-            player = collision.gameObject;
+            player = other.gameObject;
             playerBehaviour = player.GetComponent<PlayerBehaviour>();
             playerBehaviour.InstantiateExplosionParticles();
 
-            collision.gameObject.SetActive(false);
-            
+            other.gameObject.SetActive(false);
+
             // Call the function ResetGame after waitTime
             // has passed
             Invoke("ResetGame", waitTime);
