@@ -150,8 +150,8 @@ public class PlayerBehaviour : MonoBehaviour {
             highScoreTextGO.text = string.Format("{0:0}", score);
 
             //add the highest score to the leaderboard
-            /*GooglePlayGame.AddScoreToLeaderboard(
-                GPGSIds.leaderboard_leaderboard, PlayerPrefs.GetInt("HighScore"));*/
+            GooglePlayGame.AddScoreToLeaderboard(
+                GPGSIds.leaderboard_leaderboard, PlayerPrefs.GetInt("HighScore"));
         }
     }
 

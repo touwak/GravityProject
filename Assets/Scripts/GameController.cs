@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -447,4 +448,12 @@ public class GameController : MonoBehaviour {
     }
 
     #endregion
+
+    public IEnumerator UnpauseInSeconds(float seconds) {
+
+        yield return new WaitForSecondsRealtime(seconds);
+
+        Time.timeScale = 1f;
+        PauseScreenBehaviour.paused = false;
+    }
 }

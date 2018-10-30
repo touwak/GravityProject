@@ -24,14 +24,14 @@
 
 public static class GPGSIds
 {
-        public const string achievement_200_points = "CgkIyfOGx4MJEAIQAw"; // <GPGSID>
-        public const string achievement_100_points = "CgkIyfOGx4MJEAIQAg"; // <GPGSID>
-        public const string achievement_750_points = "CgkIyfOGx4MJEAIQBw"; // <GPGSID>
-        public const string leaderboard_leaderboard = "CgkIyfOGx4MJEAIQAQ"; // <GPGSID>
-        public const string achievement_300_points = "CgkIyfOGx4MJEAIQBA"; // <GPGSID>
-        public const string achievement_400_points = "CgkIyfOGx4MJEAIQBQ"; // <GPGSID>
-        public const string achievement_1000_points = "CgkIyfOGx4MJEAIQCA"; // <GPGSID>
-        public const string achievement_500_points = "CgkIyfOGx4MJEAIQBg"; // <GPGSID>
+        public const string achievement_200_points = "CgkIxv64p-sPEAIQAg"; // <GPGSID>
+        public const string achievement_100_points = "CgkIxv64p-sPEAIQAQ"; // <GPGSID>
+        public const string achievement_450_points = "CgkIxv64p-sPEAIQBA"; // <GPGSID>
+        public const string achievement_300_points = "CgkIxv64p-sPEAIQAw"; // <GPGSID>
+        public const string achievement_1000_points = "CgkIxv64p-sPEAIQBw"; // <GPGSID>
+        public const string achievement_800_points = "CgkIxv64p-sPEAIQBg"; // <GPGSID>
+        public const string achievement_600_points = "CgkIxv64p-sPEAIQBQ"; // <GPGSID>
+        public const string leaderboard_leaderboard = "CgkIxv64p-sPEAIQCA"; // <GPGSID>
 
 }
 

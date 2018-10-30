@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GooglePlayGame : MonoBehaviour {
 
-	//void Start () {
+    void Start() {
+        
         //PlayGamesPlatform.DebugLogEnabled = true;
 
         //PlayGamesClientConfiguration config =
@@ -14,11 +15,11 @@ public class GooglePlayGame : MonoBehaviour {
         //PlayGamesPlatform.Activate();
 
         //SignIn();
-	//}
+    }
 
-    //void SignIn() {
-    //    Social.localUser.Authenticate(success => { });
-    //}
+    void SignIn() {
+        Social.localUser.Authenticate(success => { });
+    }
 
     #region ACHIEVEMENTS
     public static void UnlockAchievement(string id, double progess) {
@@ -37,9 +38,9 @@ public class GooglePlayGame : MonoBehaviour {
        IncrementAchievement(GPGSIds.achievement_100_points, score);
        IncrementAchievement(GPGSIds.achievement_200_points, score); 
        IncrementAchievement(GPGSIds.achievement_300_points, score);  
-       IncrementAchievement(GPGSIds.achievement_400_points, score);    
-       IncrementAchievement(GPGSIds.achievement_500_points, score);    
-       IncrementAchievement(GPGSIds.achievement_750_points, score);   
+       IncrementAchievement(GPGSIds.achievement_450_points, score);    
+       IncrementAchievement(GPGSIds.achievement_600_points, score);    
+       IncrementAchievement(GPGSIds.achievement_800_points, score);   
        IncrementAchievement(GPGSIds.achievement_1000_points, score); 
     }
     #endregion

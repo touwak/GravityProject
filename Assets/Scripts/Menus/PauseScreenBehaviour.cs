@@ -17,9 +17,9 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
     public void Restart() {
 
         //TODO increment the achievements
-        /*if (player) {
+        if (player) {
             GooglePlayGame.CheckAdchievements((int)player.Score);
-        }*/
+        }
 
         if (UnityAdController.restartWithoutAds >= UnityAdController.restartAdsThreshold &&
             UnityAdController.showAds) {
@@ -51,9 +51,9 @@ public class PauseScreenBehaviour : MainMenuBehaviour {
 
     public override void LoadLevel(string levelName) {
         //TODO increment the achievements
-        /*if (player) {
+        if (player) {
             GooglePlayGame.CheckAdchievements((int)player.Score);
-        }*/
+        }
 
         base.LoadLevel(levelName);
     }

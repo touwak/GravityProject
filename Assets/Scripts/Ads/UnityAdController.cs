@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 #if UNITY_ADS // Can only compile ad code on support platforms
 using UnityEngine.Advertisements; // Advertisement
 #endif
@@ -13,6 +13,9 @@ public class UnityAdController : MonoBehaviour {
     public static int restartAdsThreshold = 7;
     public static int restartWithoutAds = 0;
 
+    /// <summary>
+    /// Show regular Ads
+    /// </summary>
     public static void ShowAd() {
         #if UNITY_ADS
         // Set options for our advertisement
@@ -39,11 +42,12 @@ public class UnityAdController : MonoBehaviour {
     }
     #endif
 
+    /// <summary>
+    /// Show only rewarded video
+    /// </summary>
     public static void ShowRewardAd() {
         #if UNITY_ADS
-        
-        //nextRewardTime = DateTime.Now.AddSeconds(15);
-
+      
         if (Advertisement.IsReady("rewardedVideo")) {
             // Pause game while ad is shown
             PauseScreenBehaviour.paused = true;
@@ -52,8 +56,7 @@ public class UnityAdController : MonoBehaviour {
             var options = new ShowOptions {
                 resultCallback = HandleShowResult
             };
-
-            
+                        
             Advertisement.Show("rewardedVideo", options);
         }
         #endif
@@ -76,11 +79,6 @@ public class UnityAdController : MonoBehaviour {
                 //Debug.LogError("Ad failed to show, do nothing");
                 break;
         }
-        #endif
-
-        // Unpause when ad is over or when called
-        PauseScreenBehaviour.paused = false;
-        Time.timeScale = 1f;
+        #endif           
     }
-
 }

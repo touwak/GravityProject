@@ -240,8 +240,12 @@ public class TileBehaviour : MonoBehaviour {
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.SetActive(true);
 
+        StartCoroutine(gc.UnpauseInSeconds(1f));
+
         StopOrRestartAllTiles(false);
     }
+
+
 
     /// <summary>
     /// Retrieves the Game Over menu game object
