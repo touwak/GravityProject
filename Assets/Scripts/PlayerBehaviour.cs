@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PlayerBehaviour : MonoBehaviour {
 
@@ -80,16 +81,10 @@ public class PlayerBehaviour : MonoBehaviour {
         //Check if we are running on a mobile device
 #elif UNITY_IOS || UNITY_ANDROID
         // Check if Input has registered more than zero touches
-        if (Input.touchCount > 0) {
-            foreach (Touch touch in Input.touches) {
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                RaycastHit hit;
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) {
 
-                if (Physics.Raycast(ray, out hit)) {
-                    if (touch.phase == TouchPhase.Began) {
-                        ChangeGravity();
-                    }
-                }
+            if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) {
+                ChangeGravity();
             }
         }
 #endif
