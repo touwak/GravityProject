@@ -4,23 +4,6 @@ using UnityEngine;
 
 public class GooglePlayGame : MonoBehaviour {
 
-    void Start() {
-        
-        //PlayGamesPlatform.DebugLogEnabled = true;
-
-        //PlayGamesClientConfiguration config =
-        //    new PlayGamesClientConfiguration.Builder().Build();
-
-        //PlayGamesPlatform.InitializeInstance(config);
-        //PlayGamesPlatform.Activate();
-
-        //SignIn();
-    }
-
-    void SignIn() {
-        Social.localUser.Authenticate(success => { });
-    }
-
     #region ACHIEVEMENTS
     public static void UnlockAchievement(string id, double progess) {
         Social.ReportProgress(id, progess, success => { });
